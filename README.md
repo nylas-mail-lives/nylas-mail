@@ -6,6 +6,16 @@
 [![Build Status](https://travis-ci.org/nylas-mail-lives/nylas-mail.svg?branch=master)](https://travis-ci.org/nylas-mail-lives/nylas-mail)
 [![Slack Invite Button](http://slack-invite.nylas.com/badge.svg)](https://join.slack.com/nylasisalive/shared_invite/MTg4MzQzMzY3NDEyLTE0OTU3NTQwNDMtYzhhZmE3NDM0NA)
 
+# This is a Fork
+This is a fork from the project currently hosted at [nylas/nylas-mail](https://github.com/nylas-mail-lives/nylas-mail). A bunch of developers who really liked this open source project got upset on [this issue thread](https://github.com/nylas/nylas-mail/issues/3564) and wondered if they could contribute to the project, as the main development team had stopped to look into issues and pull requests from the comunity.
+
+Our main objective is to maintain this amazing project alive (alas, the name of the org) and actively accepting contributions from the comunity. We believe this is the true life behind any open source endevour.
+
+We are still figuring out how to manage this fork, our relationship with the original repository maintainers, how to deploy and etc. We welcome contributions of all kinds as we try to get the house in order.
+
+We will, naturally, honor the licenses as they were writen by Nylas on the original project.
+
+Please, feel free to contact any of the developers or, preferably, use our Slack team linked above to look into the discussions.
 
 ## Download Nylas Mail
 
