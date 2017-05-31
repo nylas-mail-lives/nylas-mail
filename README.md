@@ -3,13 +3,16 @@
 
   **Nylas Mail is an open-source mail client built on the modern web with [Electron](https://github.com/atom/electron), [React](https://facebook.github.io/react/), and [Flux](https://facebook.github.io/flux/).** It is designed to be extensible, so it's easy to create new experiences and workflows around email. Want to learn more? Check out the [full documentation](https://nylas.github.io/nylas-mail)
 
-[![Build Status](https://travis-ci.org/nylas-mail-lives/nylas-mail.svg?branch=master)](https://travis-ci.org/nylas-mail-lives/nylas-mail)
 [![Slack Invite Button](http://slack-invite.nylas.com/badge.svg)](https://join.slack.com/nylasisalive/shared_invite/MTg4MzQzMzY3NDEyLTE0OTU3NTQwNDMtYzhhZmE3NDM0NA)
+
+## Download Nylas Mail
+
+You can download compiled versions of Nylas Mail for Windows, Mac OS X, and Linux (.deb) from [https://nylas.com/download](https://nylas.com/download). You can also build and run Nylas Mail (Previously N1) on Fedora. On Arch Linux, you can install **[n1](https://aur.archlinux.org/packages/n1/)** or **[n1-git](https://aur.archlinux.org/packages/n1-git/)** from the aur.
 
 # This is a Fork
 This is a fork from the project currently hosted at [nylas/nylas-mail](https://github.com/nylas-mail-lives/nylas-mail). A bunch of developers who really liked this open source project got upset on [this issue thread](https://github.com/nylas/nylas-mail/issues/3564) and wondered if they could contribute to the project, as the main development team had stopped to look into issues and pull requests from the comunity.
 
-Our main objective is to maintain this amazing project alive (alas, the name of the org) and actively accepting contributions from the comunity. We believe this is the true life behind any open source endevour.
+Our main objective is to maintain this amazing project alive and actively accepting contributions from the comunity. We believe this is the true life behind any open source endevour.
 
 We are still figuring out how to manage this fork, our relationship with the original repository maintainers, how to deploy and etc. We welcome contributions of all kinds as we try to get the house in order.
 
