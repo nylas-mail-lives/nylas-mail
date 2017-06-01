@@ -126,4 +126,9 @@ When you install packages, they're moved to ~/.nylas-mail/packages, and Nylas Ma
 You can configure Nylas Mail in a few ways—for instance, pointing it to your self-hosted instance of the sync engine or changing the interface zoom level. [Learn more about how.](https://github.com/nylas/nylas-mail/blob/master/CONFIGURATION.md)
 
 ## Feature Requests / Plugin Ideas
+
 Have an idea for a package or a feature you'd love to see in Nylas Mail? Search for existing [GitHub issues](https://github.com/nylas-mail-lives/nylas-mail/issues) and join the conversation!
+
+## Contributing
+If you would like to contribute to the project, but aren't sure where to start, please take a look at the [Guide](docs/guide/README.md#contributing).
+
