@@ -31,11 +31,6 @@ export default {
             'default': false,
             'title': "Use 24-hour clock",
           },
-          descendingOrderMessageList: {
-            'type': 'boolean',
-            'default': false,
-            'title': "Display message list in descending order",
-          },
           interfaceZoom: {
             'title': "Override standard interface scaling",
             'type': 'number',
@@ -98,6 +93,11 @@ export default {
             'type': 'boolean',
             'default': false,
             'title': "Swipe gesture and backspace / delete move messages to trash",
+          },
+          descendingOrderMessageList: {
+            'type': 'boolean',
+            'default': false,
+            'title': "Display conversations in descending chronological order",
           },
         },
       },

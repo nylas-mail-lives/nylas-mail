@@ -139,12 +139,6 @@ const WorkspaceSection = (props) => {
         keyPath="core.workspace.use24HourClock"
         config={props.config}
       />
-      
-      <ConfigSchemaItem
-        configSchema={props.configSchema.properties.workspace.properties.descendingOrderMessageList}
-        keyPath="core.workspace.descendingOrderMessageList"
-        config={props.config}
-      />
 
       <ConfigSchemaItem
         configSchema={props.configSchema.properties.workspace.properties.interfaceZoom}

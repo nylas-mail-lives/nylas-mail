@@ -295,7 +295,7 @@ class MessageList extends React.Component
     messages = @_messagesWithMinification(@state.messages)
     
     # Check on whether to display items in descending order
-    descendingOrderMessageList = NylasEnv.config.get('core.workspace.descendingOrderMessageList')
+    descendingOrderMessageList = NylasEnv.config.get('core.reading.descendingOrderMessageList')
     if descendingOrderMessageList
       messages = messages.reverse()
       lastMessageIdx = 0
