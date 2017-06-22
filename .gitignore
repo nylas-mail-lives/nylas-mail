@@ -73,9 +73,3 @@ scripts/venv
 
 # OAuth client secret for talking to Google Sheets
 client_secret.json
-
-# CodeLite Workspace Files
-.tern-port
-.tern-project
-nylas-mail.workspace*
-.codelite/*
