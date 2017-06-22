@@ -31,6 +31,11 @@ export default {
             'default': false,
             'title': "Use 24-hour clock",
           },
+          descendingOrderMessageList: {
+            'type': 'boolean',
+            'default': false,
+            'title': "Display message list in descending order",
+          },
           interfaceZoom: {
             'title': "Override standard interface scaling",
             'type': 'number',
