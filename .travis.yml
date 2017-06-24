@@ -1,7 +1,4 @@
-# The private Nylas monorepo build script. This will build a full signed
-# release for the Nylas Mail client
 sudo: false
-
 addons:
   apt:
     sources:
@@ -18,29 +15,40 @@ addons:
     - libxext-dev
     - libxtst-dev
     - libxkbfile-dev
-
 branches:
   only:
   - master
   - /ci-.*/
   - /stable.*/
-
 matrix:
   include:
   - os: linux
     env: NODE_VERSION=6.9 CC=gcc-4.8 CXX=g++-4.8 DEBUG="electron-packager:*" INSTALL_TARGET=client
   - os: osx
     env: NODE_VERSION=6.9 CC=clang CXX=clang++ SIGN_BUILD=true DEBUG="electron-packager:*" INSTALL_TARGET=client
+    # Create the keychain with a password
+    security create-keychain -p travis nml-build.keychain
+
+    # Make the custom keychain default, to use it for signing
+    security default-keychain -s nml-build.keychain
+
+    # Unlock the keychain
+    security unlock-keychain -p travis nml-build.keychain
+
+    # Add certificates to keychain and allow codesign to access them
+    security import ./certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign
+    security import ./certs/gray-nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign
+    security import ./certs/gray-nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
+
+    security set-key-partition-list -S apple-tool:,apple: -s -k travis nml-build.keychain
 
 install:
 - git clone https://github.com/creationix/nvm.git /tmp/.nvm
 - source /tmp/.nvm/nvm.sh
 - nvm install $NODE_VERSION
 - nvm use --delete-prefix $NODE_VERSION
-
 script:
 - npm install && npm run build-client
-
 cache:
   directories:
   - node_modules
