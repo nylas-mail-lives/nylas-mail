@@ -33,15 +33,13 @@ install:
 - nvm use --delete-prefix $NODE_VERSION
 before_script:
     - 'if [ ${TRAVIS_OS_NAME} = "osx" ]; then
-          security delete-keychain -p travis nml-build.keychain;
-          security delete-keychain -p travis nml-build.keychain;
+          security delete-keychain nml-build.keychain;
           security create-keychain -p travis nml-build.keychain;
           security default-keychain -s nml-build.keychain;
           security unlock-keychain -p travis nml-build.keychain;
           security import ~/build/GrayW/nylas-mail/certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
-          security import ~/build/GrayW/nylas-mail/certs/gray-nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
-          security import ~/build/GrayW/nylas-mail/certs/gray-nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign;
-          security set-key-partition-list -S apple-tool:,apple: -s -k travis nml-build.keychain;
+          security import ~/build/GrayW/nylas-mail/certs/grayw-nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
+          security import ~/build/GrayW/nylas-mail/certs/grayw-nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign;
       fi'
 script:
 - npm install && npm run build-client
