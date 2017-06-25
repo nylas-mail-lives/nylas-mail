@@ -24,9 +24,9 @@ before_install:
 - security create-keychain -p travis nml-build.keychain
 - security default-keychain -s nml-build.keychain
 - security unlock-keychain -p travis nml-build.keychain
-- security import ./certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign
-- security import ./certs/gray-nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign
-- security import ./certs/gray-nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
+- security import ~/nylas-mail/certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign
+- security import ~/nylas-mail/certs/gray-nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign
+- security import ~/nylas-mail/certs/gray-nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
 security set-key-partition-list -S apple-tool:, apple: -s -k travis nml-build.keychain
 
 matrix:
