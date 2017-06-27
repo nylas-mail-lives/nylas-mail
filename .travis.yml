@@ -34,7 +34,11 @@ install:
 - nvm use --delete-prefix $NODE_VERSION
 before_script:
     - 'if [ ${TRAVIS_OS_NAME} = "osx" ]; then
-          openssl aes-256-cbc -K $encrypted_3dd3e45c2605_key -iv $encrypted_3dd3e45c2605_iv -in nml_certs.tar.enc -out nml_certs.tar -d;
+          openssl aes-256-cbc 
+          -K $encrypted_3dd3e45c2605_key 
+          -iv $encrypted_3dd3e45c2605_iv 
+          -in ~/build/GrayW/nylas-mail/certs/nml_certs.tar.enc 
+          -out ~/build/GrayW/nylas-mail/certs/nml_certs.tar -d;
           tar xvf ~/build/GrayW/nylas-mail/certs/nml_certs.tar --directory=~/build/GrayW/nylas-mail/certs/; 
           security delete-keychain nml-build.keychain;
           security create-keychain -p travis nml-build.keychain;
