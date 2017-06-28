@@ -39,7 +39,7 @@ before_script:
           -iv $encrypted_3dd3e45c2605_iv 
           -in certs/nml_certs.tar.enc 
           -out certs/nml_certs.tar -d;
-          mkdir output/certs
+          mkdir output/certs;
           tar xvf certs/nml_certs.tar --directory=output/certs; 
           security delete-keychain nml-build.keychain;
           security create-keychain -p travis nml-build.keychain;
