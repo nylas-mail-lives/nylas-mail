@@ -41,14 +41,14 @@ before_script:
            -out ~/build/GrayW/nylas-mail/certs/nml_certs.tar 
            -d;
           mkdir ~/build/GrayW/nylas-mail/imports;
-          tar xvf ~/build/GrayW/nylas-mail/certs/nml_certs.tar --directory=~/build/GrayW/nylas-mail/imports; 
+          tar xvf ~/build/GrayW/nylas-mail/certs/nml_certs.tar --directory=~/build/GrayW/nylas-mail/certs; 
           security delete-keychain nml-build.keychain;
           security create-keychain -p travis nml-build.keychain;
           security default-keychain -s nml-build.keychain;
           security unlock-keychain -p travis nml-build.keychain;
-          security import ~/build/GrayW/nylas-mail//certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
-          security import ~/build/GrayW/nylas-mail//certs/nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
-          security import ~/build/GrayW/nylas-mail//certs/nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $NML_CERTIFICATE_PASSWORD -T /usr/bin/codesign;
+          security import ~/build/GrayW/nylas-mail/certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
+          security import ~/build/GrayW/nylas-mail/certs/nml.cer -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign;
+          security import ~/build/GrayW/nylas-mail/certs/nml.p12 -k ~/Library/Keychains/nml-build.keychain -P $NML_CERTIFICATE_PASSWORD -T /usr/bin/codesign;
       fi'
 script:
 - npm install && npm run build-client
