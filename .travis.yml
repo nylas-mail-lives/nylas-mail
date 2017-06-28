@@ -29,7 +29,7 @@ matrix:
     env: NODE_VERSION=6.9 CC=clang CXX=clang++ SIGN_BUILD=true DEBUG="electron-packager:*"
       INSTALL_TARGET=client
 before_install:
-- openssl aes-256-cbc -K $encrypted_3dd3e45c2605_key -iv $encrypted_3dd3e45c2605_iv
+- openssl aes-256-cbc -K $encrypted_1670798fb6bd_key -iv $encrypted_1670798fb6bd_iv
   -in ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12.enc -out ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12 -d
 install:
 - git clone https://github.com/creationix/nvm.git /tmp/.nvm
