@@ -30,7 +30,7 @@ matrix:
       INSTALL_TARGET=client
 before_install:
 - openssl aes-256-cbc -K $encrypted_3dd3e45c2605_key -iv $encrypted_3dd3e45c2605_iv
-  -in ~/build/GrayW/nylas-mail/certsnml.p12.enc -out ~/build/GrayW/nylas-mail/certsnml.p12 -d
+  -in ~/build/GrayW/nylas-mail/certs/nml.p12.enc -out ~/build/GrayW/nylas-mail/certs/nml.p12 -d
 install:
 - git clone https://github.com/creationix/nvm.git /tmp/.nvm
 - source /tmp/.nvm/nvm.sh
