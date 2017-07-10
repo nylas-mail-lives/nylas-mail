@@ -18,8 +18,8 @@ addons:
 branches:
   only:
   - master
-  - /ci-.*/
-  - /stable.*/
+  - "/ci-.*/"
+  - "/stable.*/"
 matrix:
   include:
   - os: linux
@@ -29,7 +29,8 @@ matrix:
       INSTALL_TARGET=client
 before_install:
 - openssl aes-256-cbc -K $encrypted_1670798fb6bd_key -iv $encrypted_1670798fb6bd_iv
-  -in ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12.enc -out ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12 -d
+  -in ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12.enc -out ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12
+  -d
 install:
 - git clone https://github.com/creationix/nvm.git /tmp/.nvm
 - source /tmp/.nvm/nvm.sh
@@ -40,13 +41,26 @@ before_script:
   security create-keychain -p travis nml-build.keychain; security default-keychain
   -s nml-build.keychain; security unlock-keychain -p travis nml-build.keychain; security
   import ~/build/nylas-mail-lives/nylas-mail/certs/AppleWWDRCA.cer -k ~/Library/Keychains/nml-build.keychain
-  -T /usr/bin/codesign; security import ~/build/nylas-mail-lives/nylas-mail/certs/nml.cer -k
-  ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign; security import ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12
-  -k ~/Library/Keychains/nml-build.keychain -P $NML_CERTIFICATE_PASSWORD -T /usr/bin/codesign;
-  fi
+  -T /usr/bin/codesign; security import ~/build/nylas-mail-lives/nylas-mail/certs/nml.cer
+  -k ~/Library/Keychains/nml-build.keychain -T /usr/bin/codesign; security import
+  ~/build/nylas-mail-lives/nylas-mail/certs/nml.p12 -k ~/Library/Keychains/nml-build.keychain
+  -P $NML_CERTIFICATE_PASSWORD -T /usr/bin/codesign; fi
 script:
 - npm install && npm run build-client
 cache:
   directories:
   - node_modules
   - apm/node_modules
+deploy:
+  provider: releases
+  api_key:
+    secure: ZtvjHj0FgY5tO4Uh9D/OaZ0oRpTFbgeAIhvhlbKsfwhLHfYcnPSp0n7QWrKCuz3lPqlFIpeM94NmTeIzZpQ0AubdMqFS3q8VVd1O12/iyDyPKAjfK5uAtcJb6/pofuCGhRU9iGCC/uF6U6x8BLMryVz4GpmPr/4Nxw727jUnY+oQ1WyQ7ZEGau5HDT4D6+eh5JOYptTeNq50D4HNMgdsawePqVBFS2R5XBS/jsOjrfPYJJhs9OQY2/MGjbUiaSSbNPH7DnFagp6WZ5xWyxImYE0eTButcYF/xsrUEn2Tj3GOgH65rZOyDZUG9Mh4d0okiT0q6GWxEmR4o3f+FHDls26iw5mX2b7CDrS2y/NkTvDPwTEPQWdRqePC1OFfhga2U3O2T52FoJNUhTobUi9P0pVEnSPzpT+411HPvZ5f9WbGihSV1OZTyC8nvDVimmR1NQ3IccraztYwznIM5OSk49Gmdbig+Dh2gcyaMbdU0T56qx2bjFV215D1gP3GNW1644vczJqy2DjzMhe70OJl0SQna4ZxzIItkKmF5nRfMn7lWDIpFo1r2brbm+c1m5aPk+FAOu+133Oey8ymHL5+qOEG+3KVEW941bodx4njWcH46t1mJ4MXi84awL5vtAtw2lZzV1ndcwuqk0BVoBZXSOgY6Vwop3ShH5yvOoG5bmI=
+  file_glob: true
+  file:
+    - "./packages/client-app/dist/*.deb"
+    - "./packages/client-app/dist/*.rpm"
+    - "./packages/client-app/dist/*.dmg"
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: nylas-mail-lives/nylas-mail
