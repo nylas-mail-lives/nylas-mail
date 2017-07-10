@@ -28,7 +28,6 @@ deploy_script:
 - ps: |
     npm run build-client
     node packages/client-app/build/create-signed-windows-installer.js
-    npm run upload-client
 
 environment:
   matrix:
