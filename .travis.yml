@@ -65,3 +65,4 @@ deploy:
   on:
     tags: true
     repo: nylas-mail-lives/nylas-mail
+
