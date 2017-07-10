@@ -18,6 +18,7 @@ addons:
 branches:
   only:
   - master
+  - TravisDeploy
   - "/ci-.*/"
   - "/stable.*/"
 matrix:
