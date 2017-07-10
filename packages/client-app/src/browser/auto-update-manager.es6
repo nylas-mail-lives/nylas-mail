@@ -30,7 +30,8 @@ export default class AutoUpdateManager extends EventEmitter {
 
     this.updateFeedURL();
 
-    setTimeout(() => this.setupAutoUpdater(), 0);
+    this.setState(NoUpdateAvailableState); // TODO: Remove to re-enable
+    // setTimeout(() => this.setupAutoUpdater(), 0); // TODO: Uncomment to re-enable
   }
 
   parameters = () => {
@@ -59,6 +60,7 @@ export default class AutoUpdateManager extends EventEmitter {
   }
 
   updateFeedURL = () => {
+    return; // TODO: Remove to re-enable
     const params = this.parameters();
 
     let host = `edgehill.nylas.com`;
@@ -80,6 +82,7 @@ export default class AutoUpdateManager extends EventEmitter {
   }
 
   setupAutoUpdater() {
+    return; // TODO: Remove to re-enable
     if (process.platform === 'win32') {
       autoUpdater = require('./windows-updater-squirrel-adapter');
     } else if (process.platform === 'linux') {
@@ -130,6 +133,7 @@ export default class AutoUpdateManager extends EventEmitter {
   }
 
   emitUpdateAvailableEvent() {
+    return; // TODO: Remove to re-enable
     if (!this.releaseVersion) {
       return;
     }
@@ -152,6 +156,7 @@ export default class AutoUpdateManager extends EventEmitter {
   }
 
   check({hidePopups} = {}) {
+    return; // TODO: Remove to re-enable
     this.updateFeedURL();
     if (!hidePopups) {
       autoUpdater.once('update-not-available', this.onUpdateNotAvailable);
@@ -168,6 +173,7 @@ export default class AutoUpdateManager extends EventEmitter {
   }
 
   install() {
+    return; // TODO: Remove to re-enable
     if (process.platform === "win32") {
       // On windows the update has already been "installed" and shortcuts
       // already updated. You just need to restart the app to load the new
