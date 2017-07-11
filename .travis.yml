@@ -63,6 +63,7 @@ deploy:
     - "./packages/client-app/dist/*.dmg"
   skip_cleanup: true
   on:
+    tags: true
     all_branches: true
     repo: nylas-mail-lives/nylas-mail
 
