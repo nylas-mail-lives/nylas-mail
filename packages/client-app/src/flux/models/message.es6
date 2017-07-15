@@ -109,7 +109,7 @@ export default class Message extends ModelWithMetadata {
         return MessageBodyUtils.writeBody({
           msgId: this.id,
           body: val,
-          forceWrite: false,
+          forceWrite: this.draft
         });
       },
       deserializeFn: function deserializeBody(val) {
