@@ -42,7 +42,7 @@
     "underscore": "1.8.x"
   },
   "scripts": {
-    "windows-start":"npm run client-windows",
+    "windows-start":"npm run windows-client",
     "start": "npm run client",
     "test": "npm run test-client && npm run test-cloud",
     "windows-test": "npm run windows-test-client && npm run windows-test-cloud",

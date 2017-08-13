@@ -62,6 +62,6 @@ D. Create a environment variable GYP_MSVS_VERSION=2015
     npm run windows-build-client
     ```
 7. If there are no errors in the previous two steps, start the app with:
-  ```bash
-  npm run windows-start
-  ```
+    ```bash
+    npm run windows-start
+    ```
