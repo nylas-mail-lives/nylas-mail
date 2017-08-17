@@ -35,3 +35,33 @@ If you are looking to simply install Nylas-Mail on your system (and are not look
     npm start
     ```
     * If an error was thrown during the build process, please make sure all of your dependencies were installed in step 2.
+
+## Windows:
+1. Install Node.js version 6.9.x ( Can use Windows [NVM](https://github.com/coreybutler/nvm-windows))
+2. Dependencies:
+A. Visual Studio 2015 Community
+B. Python 2.7 (v3.x.x is not supported)
+C. create a environment variable PYTHON pointing at :\\path\\python.exe
+D. Create a environment variable GYP_MSVS_VERSION=2015
+
+3. Open the Command Prompt as an administrator
+4. Clone this repo using git.
+    ```bash
+    git clone our-repo-link
+    ```
+    Enter the local repo using
+    ```bash
+    cd nylas-mail
+    ```
+5.  Install the necessary node packages using:
+    ```bash
+    npm install
+    ```
+6.  Assuming node was able to install the appropriate dependencies without error, you can build the client app with:
+    ```bash
+    npm run windows-build-client
+    ```
+7. If there are no errors in the previous two steps, start the app with:
+    ```bash
+    npm run windows-start
+    ```
