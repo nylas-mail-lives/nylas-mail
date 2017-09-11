@@ -113,10 +113,6 @@ class SyncProcessManager {
    * Useful for debugging.
    */
   async start() {
-    if (!IdentityStore.identity()) {
-      global.Logger.log(`SyncProcessManager: Can't start sync; no Nylas Identity present`)
-      return
-    }
     global.Logger.log(`SyncProcessManager: Starting sync`)
 
     const {Account} = await LocalDatabaseConnector.forShared();

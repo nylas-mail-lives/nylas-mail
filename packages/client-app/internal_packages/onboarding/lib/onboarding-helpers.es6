@@ -134,11 +134,8 @@ export function runAuthRequest(accountInfo, {forceTrustCertificate = false} = {}
     sendImmediately: true,
   };
 
-  // Send the form data directly to Nylas to get code
-  // If this succeeds, send the received code to N1 server to register the account
-  // Otherwise process the error message from the server and highlight UI as needed
-  const n1CloudIMAPAuthRequest = new NylasAPIRequest({
-    api: N1CloudAPI,
+  const localSyncIMAPAuthRequest = new NylasAPIRequest({
+    api: NylasAPI,
     options: {
       path: '/auth',
       method: 'POST',
@@ -147,23 +144,7 @@ export function runAuthRequest(accountInfo, {forceTrustCertificate = false} = {}
       auth: noauth,
     },
   })
-  return n1CloudIMAPAuthRequest.run()
-  .catch((err) => {
-    err.location = "cloud"
-    throw err
-  })
-  .then((remoteJSON) => {
-    const localSyncIMAPAuthRequest = new NylasAPIRequest({
-      api: NylasAPI,
-      options: {
-        path: `/auth`,
-        method: 'POST',
-        timeout: 1000 * 180, // Same timeout as server timeout (most requests are faster than 90s, but server validation can be slow in some cases)
-        body: data,
-        auth: noauth,
-      },
-    })
-    return localSyncIMAPAuthRequest.run()
+  return localSyncIMAPAuthRequest.run()
     .catch((err) => {
       err.location = "client"
       throw err
@@ -171,10 +152,8 @@ export function runAuthRequest(accountInfo, {forceTrustCertificate = false} = {}
     .then((localJSON) => {
       const accountWithTokens = Object.assign({}, localJSON);
       accountWithTokens.localToken = localJSON.account_token;
-      accountWithTokens.cloudToken = remoteJSON.account_token;
       return accountWithTokens
     })
-  })
 }
 
 export function isValidHost(value) {
