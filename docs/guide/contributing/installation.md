@@ -22,7 +22,7 @@ If you are looking to simply install Nylas-Mail on your system (and are not look
       
 ## Common (Linux and MacOS)
 1. Install Node.js version **6.9** (suggested using [NVM](https://github.com/creationix/nvm/blob/master/README.md#install-script))
-    * If using nvm, prepend all the coming `npm` commands with
+    * If using nvm, prepend all the coming `npm` commands with the following to use the correct NPM version:
     ```bash
     nvm exec 6.9
     ```
