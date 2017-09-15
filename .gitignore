@@ -67,3 +67,6 @@ client_secret.json
 .tern-project
 nylas-mail.workspace*
 .codelite/*
+
+# VS Code Workspace Files
+.vscode
