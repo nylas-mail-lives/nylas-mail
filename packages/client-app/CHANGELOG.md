@@ -1,5 +1,9 @@
 # Nylas Mail Changelog
 
+### 2.2.0 (9/14/2017)
+
+  + Merge complete code dump from Nylas with 2.1.0 (Issue #69)
+
 ### 2.1.0 (7/9/2017)
 
   + An NML (Nylas Mail Lives) Build

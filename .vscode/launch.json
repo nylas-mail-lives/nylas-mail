@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "node",
+            "request": "launch",
+            "program": "",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}/packages/client-app/",
+            "runtimeExecutable": "${workspaceRoot}/packages/client-app/node_modules/.bin/electron",
+            "runtimeArgs": [
+                "${workspaceRoot}/packages/client-app/src/browser/main.js",
+                "--enable-logging",
+                "--dev"
+            ],
+            "env": {},
+            "sourceMaps": true
+        },
+        {
+            "name": "Attach",
+            "type": "node",
+            "request": "attach",
+            "port": 5858,
+            "sourceMaps": true
+        }
+    ]
+}

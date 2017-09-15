@@ -1,9 +1,9 @@
 {
   "name": "nylas-mail",
   "productName": "Nylas Mail",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "The best email app for people and teams at work",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "main": "./src/browser/main.js",
   "repository": {
     "type": "git",
