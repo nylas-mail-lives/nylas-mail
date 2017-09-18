@@ -1,5 +1,5 @@
 NylasStore = require 'nylas-store'
-{Rx, Actions, DatabaseStore, ProviderSyncbackRequest, DeltaConnectionStore} = require 'nylas-exports'
+{Rx, Actions, DatabaseStore, ProviderSyncbackRequest} = require 'nylas-exports'
 qs = require 'querystring'
 _ = require 'underscore'
 moment = require 'moment'
@@ -80,7 +80,6 @@ class DeveloperBarStore extends NylasStore
       .order(ProviderSyncbackRequest.attributes.id.descending())
       .limit(100)
     Rx.Observable.fromQuery(query).subscribe(@_onSyncbackRequestChange)
-    @listenTo DeltaConnectionStore, @_onDeltaConnectionStatusChanged
     @listenTo Actions.willMakeAPIRequest, @_onWillMakeAPIRequest
     @listenTo Actions.didMakeAPIRequest, @_onDidMakeAPIRequest
     @listenTo Actions.longPollReceivedRawDeltas, @_onLongPollDeltas
@@ -95,12 +94,6 @@ class DeveloperBarStore extends NylasStore
 
   _onSyncbackRequestChange: (reqs = []) =>
     @_providerSyncbackRequests = reqs
-    @trigger()
-
-  _onDeltaConnectionStatusChanged: ->
-    @_longPollStates = {}
-    _.forEach DeltaConnectionStore.getDeltaConnectionStates(), (state, accountId) =>
-      @_longPollStates[accountId] = state.status
     @trigger()
 
   _onLongPollDeltas: (deltas) ->
