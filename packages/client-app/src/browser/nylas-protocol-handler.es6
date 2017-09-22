@@ -13,16 +13,18 @@ import path from 'path';
 //   * ~/.nylas-mail/packages
 //   * RESOURCE_PATH/node_modules
 //
+// If in dev mode, ~/.nylas-mail is replaced with ~/.nylas-dev
+//
 export default class NylasProtocolHandler {
-  constructor(resourcePath, safeMode) {
+  constructor(configDirPath, resourcePath, safeMode) {
     this.loadPaths = [];
-    this.dotNylasDirectory = path.join(app.getPath('home'), '.nylas-mail');
+    this.configDirPath = configDirPath;
 
     if (!safeMode) {
-      this.loadPaths.push(path.join(this.dotNylasDirectory, 'dev', 'packages'));
+      this.loadPaths.push(path.join(configDirPath, 'dev', 'packages'));
     }
 
-    this.loadPaths.push(path.join(this.dotNylasDirectory, 'packages'));
+    this.loadPaths.push(path.join(configDirPath, 'packages'));
     this.loadPaths.push(path.join(resourcePath, 'internal_packages'));
 
     this.registerNylasProtocol();
@@ -35,7 +37,7 @@ export default class NylasProtocolHandler {
 
       let filePath = null;
       if (relativePath.indexOf('assets/') === 0) {
-        const assetsPath = path.join(this.dotNylasDirectory, relativePath);
+        const assetsPath = path.join(this.configDirPath, relativePath);
         const assetsStats = fs.statSyncNoException(assetsPath);
         if (assetsStats.isFile && assetsStats.isFile()) {
           filePath = assetsPath;
