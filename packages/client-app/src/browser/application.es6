@@ -44,7 +44,7 @@ export default class Application extends EventEmitter {
     this.safeMode = safeMode;
 
     this.fileListCache = new FileListCache();
-    this.nylasProtocolHandler = new NylasProtocolHandler(this.resourcePath, this.safeMode);
+    this.nylasProtocolHandler = new NylasProtocolHandler(this.configDirPath, this.resourcePath, this.safeMode);
 
     this.databaseReader = new DatabaseReader({configDirPath, specMode});
     try {
