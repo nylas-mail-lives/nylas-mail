@@ -164,7 +164,7 @@ module.exports = (grunt) => {
       'app-category-type': "public.app-category.business",
       'tmpdir': tmpdir,
       'arch': {
-        'win32': 'ia32',
+        'win32': 'x64',
       }[platform],
       'icon': {
         darwin: path.resolve(grunt.config('appDir'), 'build', 'resources', 'mac', 'nylas.icns'),
