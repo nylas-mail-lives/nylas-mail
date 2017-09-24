@@ -22,6 +22,8 @@ If you are looking to simply install Nylas-Mail on your system (and are not look
 
 ## Windows
 1. Download and install Visual Studio 2013. The Community Edition works and is free with a Dev Essentials account; once you have a Dev Essentials account, you can access a download at https://my.visualstudio.com/Downloads?q=Visual%20Studio%202013%20with%20Update%205
+1. Download and install Python 2.7 (v3.x.x is not supported) - https://www.python.org/downloads/windows/
+1. Add Python 2.7 directory to the PATH Environment Variable (see https://www.java.com/en/download/help/path.xml)
 1. Due to the way Windows filesystem is built, it is likely you'll need to run Command Prompt as administrator. We have seen issues with rename/symlink permissions.
 1. Set the following environment variables:
     ```bash
@@ -55,6 +57,15 @@ If you are looking to simply install Nylas-Mail on your system (and are not look
      ```bash
      git clone out-repo-link C:\nylas-mail
      ```
+1. Navigate to the nylas-mail directory: (may be different if you cloned it somewhere else)
+    ```bash
+    cd nylas-mail
+    ```
+1. Make sure you don't have any Lerna-caused remnants using:
+    ```bash
+    git status
+    ```
+    and making sure you have no unexpected issues/changes with `package.json` like files. If a previous `npm install` failed prematurely, these files may need to be reset. Otherwise, you'll have missing packages. This seems to be most prevalent doing Windows builds. You'll likely see a modified `package.json` file as well as an untracked Lerna backup file.
 1. Install the necessary node packages using:
     ```bash
     npm install
@@ -73,7 +84,7 @@ If you are looking to simply install Nylas-Mail on your system (and are not look
       ```bash
       node -v
       ```
-    * **Windows developers Only**: This step is required for Windows. However, to create an installer binary, you must execute another command:
+    * **Windows Developers Only**: The `npm run build-client` step is required; however it won't build a Windows installer binary. To create an installer binary, you must execute an additional command:
       ```bash
       node packages\client-app\build\create-signed-windows-installer.js
       ```
