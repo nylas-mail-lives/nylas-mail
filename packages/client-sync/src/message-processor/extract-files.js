@@ -9,7 +9,9 @@ function collectFilesFromStruct({db, messageValues, struct, fileIds = new Set()}
       collected = collected.concat(collectFilesFromStruct({db, messageValues, struct: part, fileIds}));
     } else {
       const disposition = part.disposition || {}
-      const filename = mimelib.decodeMimeWord((disposition.params || {}).filename);
+
+      // Filename can consist of multiple encoded-words
+      const filename = mimelib.parseMimeWords((disposition.params || {}).filename);
 
       // Note that the contentId is stored in part.id, while the MIME part id
       // is stored in part.partID
