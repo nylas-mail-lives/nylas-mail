@@ -1,5 +1,5 @@
 /* eslint no-useless-escape: 0 */
-import mailcomposer from 'mailcomposer'
+const mailcomposer = require('nodemailer/lib/mail-composer');
 const mimelib = require('mimelib');
 const encoding = require('encoding');
 const he = require('he');
