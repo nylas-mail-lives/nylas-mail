@@ -8,13 +8,15 @@ It is designed to be extensible, so it's easy to create new experiences and work
 
 Want to learn more? Check out the [full documentation](https://nylas.github.io/nylas-mail).
 
-[![Slack Invite Button](http://slack-invite.nylas.com/badge.svg)](https://join.slack.com/nylasisalive/shared_invite/MjAzMDE1NTU0MDM2LTE0OTgyNzM3MTItODY4OWNlNTdkMw)
+[Join us on Slack!](https://join.slack.com/nylasisalive/shared_invite/MjAzMDE1NTU0MDM2LTE0OTgyNzM3MTItODY4OWNlNTdkMw)
 
-## Download Nylas Mail
+## Download Nylas Mail Lives
 
-> We are still figuring out our deploy options for this fork.
+You can download the latest release of Nylas Mail Lives [here](https://github.com/nylas-mail-lives/nylas-mail/releases/latest).
 
-You can download compiled versions of the original, no longer maintained Nylas Mail for Windows, Mac OS X, and Linux (.deb) from [https://nylas.com/download](https://nylas.com/download). You can also build and run Nylas Mail (Previously N1) on Fedora. On Arch Linux, you can install **[n1](https://aur.archlinux.org/packages/n1/)** or **[n1-git](https://aur.archlinux.org/packages/n1-git/)** from the aur.
+⚠️ Please note that these releases currently have no update functionality. In order to get bug fixes and new features you will need to manually reinstall the package from the above link.
+
+To our Arch Linux friends, a community member has generously created an [AUR package](https://aur.archlinux.org/packages/nylas-mail-lives-bin).
 
 ## This is a Fork
 
