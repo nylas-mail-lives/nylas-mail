@@ -184,7 +184,7 @@ export function smtpConfigFromSettings(provider, connectionSettings, connectionC
 
     const token = bearerToken(xoauth2);
 
-    config.auth = { type: 'OAuth2', user: connectionSettings.smtp_username, accessToken: token }
+    config.auth = { user: connectionSettings.smtp_username, xoauth2: token }
   } else if (SUPPORTED_PROVIDERS.has(provider)) {
     const {smtp_username, smtp_password} = connectionCredentials
     config.auth = { user: smtp_username, pass: smtp_password}
