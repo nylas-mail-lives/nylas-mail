@@ -163,7 +163,7 @@ class FetchMessagesInFolderIMAP extends SyncTask {
     // processing, we flatten the MIME structure by walking it depth-first,
     // throwing away all multipart headers with the exception of
     // multipart/alternative trees. We special case these, flattening via a
-    // recursive call and then extracting only HTML parts, since their
+    // recursive call and then extracting only a single part, since their
     // equivalent nature allows us to pick our desired representation and throw
     // away the rest.
     while (unseen.length > 0) {
@@ -171,23 +171,14 @@ class FetchMessagesInFolderIMAP extends SyncTask {
       if (part instanceof Array && (part[0].type !== 'alternative')) {
         unseen.unshift(...part);
       } else if (part instanceof Array && (part[0].type === 'alternative')) {
-        // Picking our desired alternative part(s) here vastly simplifies
+        // Picking our desired alternative part here vastly simplifies
         // later parsing of the body, since we can then completely ignore
-        // mime structure without making any terrible mistakes. We assume
-        // here that all multipart/alternative MIME parts are arrays of
-        // text/plain vs text/html, which is ~always true (and if it isn't,
-        // the message is bound to be absurd in other ways and we can't
-        // guarantee sensible display).
+        // MIME structure without making any terrible mistakes.
         part.shift();
-        const htmlParts = this._getDesiredMIMEParts(part).filter((p) => {
-          return p.mimeType === 'text/html';
-        });
-        if (htmlParts.length > 0) {
-          // Some bizarre emails contain multiple copies of the same MIME
-          // part with the same MIME type. Since multipart/alternative
-          // indicates that each MIME part is a representation of equivalent
-          // data, we can safely keep only one.
-          desired.push(htmlParts[0]);
+        const alternativeParts = this._getDesiredMIMEParts(part);
+        if (alternativeParts.length > 0) {
+          // With reference to RFC2046, we keep only the last supported part.
+          desired.push(alternativeParts[alternativeParts.length - 1]);
         }
       } else {
         if (part.size) { // will skip all multipart types
