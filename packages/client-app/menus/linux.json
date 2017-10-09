@@ -62,8 +62,7 @@
         { "type": "separator" },
         { "label": "Star", "command": "core:star-item" },
         { "type": "separator", "id": "thread-actions" },
-        { "label": "Remove from view", "command": "core:remove-from-view" },
-        { "type": "separator", "id": "view-actions" }
+        { "label": "Remove from view", "command": "core:remove-from-view" }
       ]
     },
     {
