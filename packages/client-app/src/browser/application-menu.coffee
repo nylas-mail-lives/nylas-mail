@@ -36,7 +36,7 @@ class ApplicationMenu
     @menu = Menu.buildFromTemplate(fullTemplate)
     Menu.setApplicationMenu(null)
 
-    # 
+    # setApplicationMenu(null) does not behave the same on darwin
     if process.platform is 'darwin'
       Menu.setApplicationMenu(@menu)
     
