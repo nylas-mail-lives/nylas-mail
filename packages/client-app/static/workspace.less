@@ -428,15 +428,22 @@ body.platform-linux {
     display:inherit;
     order:10000;
     .btn-toolbar {
-      margin-left: 0;
-      padding: 0 17px;
-      line-height: 36px;
+      transition: background 300ms;
+      margin: 0 0 0 1px;
+      height: 37px;
+      padding: 0 7px;
+      padding-bottom: 2px;
+      box-shadow: none;
+      background: none;
+      border-radius: 50%;
+      &:hover {
+        background: lighten(@list-hover-bg, 5%);
+        border-radius: 50%;
+      }
       img.content-mask {
         vertical-align: middle;
         background-color: @text-color-heading;
-        padding-bottom: 10px;
       }
     }
   }
-
 }
