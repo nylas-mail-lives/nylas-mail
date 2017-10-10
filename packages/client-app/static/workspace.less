@@ -424,5 +424,19 @@ body.platform-linux {
   .item-compose {
     order: -101;
   }
+  .toolbar-menu-control {
+    display:inherit;
+    order:10000;
+    .btn-toolbar {
+      margin-left: 0;
+      padding: 0 17px;
+      line-height: 36px;
+      img.content-mask {
+        vertical-align: middle;
+        background-color: @text-color-heading;
+        padding-bottom: 10px;
+      }
+    }
+  }
 
 }
