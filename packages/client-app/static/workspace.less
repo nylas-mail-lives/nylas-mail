@@ -436,4 +436,21 @@ body.platform-linux {
       }
     }
   }
+  .sheet-toolbar-container {
+    background-image: none;
+    background: @background-primary;
+    .btn-toolbar {
+      transition: background 300ms;
+      margin: 0 0 0 1px;
+      height: 37px;
+      padding: 0 14px;
+      padding-bottom: 2px;
+      border: 0;
+      box-shadow: none;
+      background: none;
+      &:hover {
+        background: darken(@list-hover-bg, 5%);
+      }
+    }
+  }
 }
