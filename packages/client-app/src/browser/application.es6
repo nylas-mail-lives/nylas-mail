@@ -353,7 +353,7 @@ export default class Application extends EventEmitter {
     });
 
     this.on('application:view-help', () => {
-      const helpUrl = 'https://support.nylas.com/hc/en-us/categories/200419318-Help-for-N1-users';
+      const helpUrl = 'https://nylas-mail-lives.gitbooks.io/nylas-mail-docs/';
       require('electron').shell.openExternal(helpUrl);
     });
 
