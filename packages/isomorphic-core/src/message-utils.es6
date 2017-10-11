@@ -404,7 +404,8 @@ function getMailerPayload(message) {
   const uploads = message.uploads || []
   for (const upload of uploads) {
     msgData.attachments.push({
-      filename: mimelib.encodeMimeWord(upload.filename),
+      // We should not encode filename here, but let nodemailer do the job
+      filename: upload.filename,
       content: fs.createReadStream(upload.targetPath),
       cid: upload.inline ? upload.id : null,
     })
