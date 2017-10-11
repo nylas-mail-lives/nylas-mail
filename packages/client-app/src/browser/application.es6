@@ -414,14 +414,14 @@ export default class Application extends EventEmitter {
       this.windowManager.sendToAllWindows('app-resumed-from-sleep', {})
     })
 
-    app.on('ready', () => {
+/*    app.on('ready', () => {
       crashReporter.start({
         productName: 'Nylas Mail',
         companyName: 'Nylas, Inc.',
         submitURL: 'https://nylas-breakpad-sentry.herokuapp.com/crashreport',
         autoSubmit: true,
       });
-    });
+    }); */
 
     app.on('window-all-closed', () => {
       this.windowManager.quitWinLinuxIfNoWindows()
