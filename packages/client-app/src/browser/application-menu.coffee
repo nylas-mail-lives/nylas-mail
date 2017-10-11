@@ -34,7 +34,12 @@ class ApplicationMenu
     @extendTemplateWithWindowMenu(fullTemplate)
 
     @menu = Menu.buildFromTemplate(fullTemplate)
-    Menu.setApplicationMenu(@menu)
+    Menu.setApplicationMenu(null)
+
+    # setApplicationMenu(null) does not behave the same on darwin
+    if process.platform is 'darwin'
+      Menu.setApplicationMenu(@menu)
+    
 
     @updateFullscreenMenuItem(@lastFocusedWindow?.isFullScreen())
     @updateDevModeItem()
