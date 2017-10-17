@@ -1,5 +1,17 @@
 # Nylas Mail Changelog
 
+### 2.2.1 (10/16/2017)
+
+  + Fix extracting multipart/alternative parts (Issue #72)
+  + Fix encoding and decoding of attachment filenames (Issues #10, #41, #91)
+  + Enable Gmail IMAP configuration (Issue #89)
+  + Correctly parse multiple CCs/BCCs in mailto links (Issue nylas/nylas-mail#3635)
+  + Fix signature editor to take full width and height (Issue #105)
+  + Fix missing shortcuts in the application menu (Issue nylas/nylas-mail#2305)
+  + Update menu button/bar (PRs #111 and #116, Issue #112)
+  + Help button now points to NML-hosted documentation (PR #118)
+  + Disable crash reports (Issue #117)
+
 ### 2.2.0 (9/14/2017)
 
   + Merge complete code dump from Nylas with 2.1.0 (Issue #69)
