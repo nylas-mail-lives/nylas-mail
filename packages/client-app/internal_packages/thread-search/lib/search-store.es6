@@ -190,7 +190,7 @@ class SearchStore extends NylasStore {
     });
 
     if (this._contactResults.length) {
-      this._suggestions.push({ divider: 'People' });
+      this._suggestions.push({divider: 'People'});
       for (const contact of this._contactResults) {
         this._suggestions.push({
           contact: contact,
