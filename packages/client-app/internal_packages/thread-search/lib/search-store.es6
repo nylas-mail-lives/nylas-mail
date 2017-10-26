@@ -126,8 +126,8 @@ class SearchStore extends NylasStore {
       this._compileResults();
     })
 
-    this._fetchThreadResults();
     this._fetchContactResults();
+    this._fetchThreadResults();
   }
 
   _fetchContactResults() {
@@ -189,20 +189,20 @@ class SearchStore extends NylasStore {
       value: this._searchQuery,
     });
 
-    if (this._threadResults.length) {
-      this._suggestions.push({divider: 'Threads'});
-      for (const thread of this._threadResults) {
-        this._suggestions.push({thread});
-      }
-    }
-
     if (this._contactResults.length) {
       this._suggestions.push({divider: 'People'});
       for (const contact of this._contactResults) {
         this._suggestions.push({
           contact: contact,
-          value: contact.email,
+          value: contact.email
         });
+      }
+    }
+
+    if (this._threadResults.length) {
+      this._suggestions.push({divider: 'Threads'});
+      for (const thread of this._threadResults) {
+        this._suggestions.push({thread});
       }
     }
 
