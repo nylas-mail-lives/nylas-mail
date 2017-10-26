@@ -58,40 +58,97 @@ class AccountIMAPSettingsForm extends React.Component {
     }
     const {accountInfo, submitting, onFieldKeyPress, onFieldChange} = this.props;
 
+    const tempFieldChange = (event) => {
+      if (event.target.id === "imap_port" || event.target.id === "smtp_port") {
+        let inputNode = event.target.nextSibling;
+        if (event.target[event.target.selectedIndex].text === "Other") {
+          inputNode.style["visibility"] = "inherit";
+        } else {
+          inputNode.style["visibility"] = "hidden";
+        }
+      }
+
+      onFieldChange(event);
+    };
+
+    const customPortInput = (event) => {
+      if (event.target.id === "imap_port_custom" || event.target.id === "smtp_port_custom") {
+        let selectNode = event.target.previousSibling;
+        selectNode[selectNode.length - 1].value = event.target.value; // assumes "Other" is last element
+        if (selectNode[selectNode.selectedIndex].text === "Other") {
+          var evt = document.createEvent("HTMLEvents");
+          evt.initEvent("change", true, true);
+          selectNode.dispatchEvent(evt);
+        }
+      }
+    };
+
     if (protocol === "imap") {
       return (
         <span>
-          <label htmlFor="imap_port">Port:</label>
-          <select
-            id="imap_port"
-            tabIndex={0}
-            value={accountInfo.imap_port}
-            disabled={submitting}
-            onKeyPress={onFieldKeyPress}
-            onChange={onFieldChange}
-          >
-            <option value="143" key="143">143</option>
-            <option value="993" key="993">993</option>
-          </select>
+          <label htmlFor="imap_port_selection">Port:</label>
+          <div id="imap_port_selection">
+            <select
+              id="imap_port"
+              tabIndex={0}
+              value={accountInfo.imap_port}
+              disabled={submitting}
+              onKeyPress={onFieldKeyPress}
+              onChange={tempFieldChange}
+            >
+              <option value="143" key="143">143</option>
+              <option value="993" key="993">993</option>
+              <option id="imap_other" key="Other">Other</option>
+            </select>
+            <input id="imap_port_custom" type="number" placeholder="Port" onInput={customPortInput} />
+          </div>
+          <style>
+            {`
+              #imap_port_selection {
+                display: inline-block;
+              }
+              #imap_port_selection input {
+                margin-left: 1em;
+                width: 5.5em;
+                visibility: hidden;
+              }
+            `}
+          </style>
         </span>
       )
     }
     if (protocol === "smtp") {
       return (
         <span>
-          <label htmlFor="smtp_port">Port:</label>
-          <select
-            id="smtp_port"
-            tabIndex={0}
-            value={accountInfo.smtp_port}
-            disabled={submitting}
-            onKeyPress={onFieldKeyPress}
-            onChange={onFieldChange}
-          >
-            <option value="25" key="25">25</option>
-            <option value="465" key="465">465</option>
-            <option value="587" key="587">587</option>
-          </select>
+          <label htmlFor="smtp_port_selection">Port:</label>
+          <div id="smtp_port_selection">
+            <select
+              id="smtp_port"
+              tabIndex={0}
+              value={accountInfo.smtp_port}
+              disabled={submitting}
+              onKeyPress={onFieldKeyPress}
+              onChange={tempFieldChange}
+            >
+              <option value="25" key="25">25</option>
+              <option value="465" key="465">465</option>
+              <option value="587" key="587">587</option>
+              <option id="smtp_other" key="Other">Other</option>
+            </select>
+            <input id="smtp_port_custom" type="number" placeholder="Port" onInput={customPortInput} />
+          </div>
+          <style>
+            {`
+              #smtp_port_selection {
+                display: inline-block;
+              }
+              #smtp_port_selection input {
+                margin-left: 1em;
+                width: 5.5em;
+                visibility: hidden;
+              }
+            `}
+          </style>
         </span>
       )
     }
