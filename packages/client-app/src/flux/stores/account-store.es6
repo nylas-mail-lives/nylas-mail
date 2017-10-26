@@ -1,6 +1,7 @@
 /* eslint global-require: 0 */
 
 import _ from 'underscore'
+const md5 = require('md5')
 
 import NylasStore from 'nylas-store'
 import KeyManager from '../../key-manager'
@@ -108,6 +109,7 @@ class AccountStore extends NylasStore {
       for (const json of NylasEnv.config.get(configAccountsKey) || []) {
         this._accounts.push((new Account()).fromJSON(json))
       }
+      this._accountsHash = md5(JSON.stringify(AccountStore.accountsToJson(this._accounts))) || "";
       const accountIds = _.pluck(this._accounts, 'id')
 
       // Loading passwords from the KeyManager is expensive so only do it if
@@ -188,10 +190,15 @@ class AccountStore extends NylasStore {
     this.trigger()
   }
 
+  static accountsToJson = (accounts) => {
+    const configAccounts = accounts.map(a => a.toJSON())
+    configAccounts.forEach(a => delete a.sync_error)
+    return configAccounts
+  }
+
   _save = () => {
     this._version += 1
-    const configAccounts = this._accounts.map(a => a.toJSON())
-    configAccounts.forEach(a => delete a.sync_error)
+    configAccounts = AccountStore.accountsToJson(this._accounts)
     NylasEnv.config.set(configAccountsKey, configAccounts)
     NylasEnv.config.set(configVersionKey, this._version)
     this._trigger()
@@ -206,6 +213,13 @@ class AccountStore extends NylasStore {
     let account = this._accounts[idx]
     if (!account) return
     account = _.extend(account, updated)
+
+    // check if this update will actually change any of the content
+    let tempAccounts
+    Object.assign(this._accounts, tempAccounts)
+    const tempAccountsJson = AccountStore.accountsToJson(tempAccounts)
+    if(md5(JSON.stringify(tempAccountsJson)) === this._accountsHash) return
+
     this._caches = {}
     this._accounts[idx] = account
     this._save()

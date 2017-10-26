@@ -1,6 +1,8 @@
 import fs from 'fs'
 import path from 'path';
 
+const numberOfConfigFiles = 20;
+
 function getSortedTimestampedFilesSync(filepath, basename, extension) {
   let files = fs.readdirSync(filepath);
   files = files.filter((file) => {
@@ -32,7 +34,7 @@ export function atomicWriteFileSync(filepath, basename, extension, content) {
 
   const files = getSortedTimestampedFilesSync(filepath, basename, extension);
 
-  while (files.length > 10) {
+  while (files.length > numberOfConfigFiles) {
     let fileToDelete = files.splice(0, 1);
     fileToDelete = fileToDelete[0];
     fs.unlinkSync(path.join(filepath, fileToDelete));
