@@ -4,6 +4,7 @@ import {BrowserWindow, dialog, app} from 'electron';
 import {atomicWriteFileSync, getMostRecentTimestampedFile} from '../fs-utils'
 
 let _ = require('underscore');
+const md5 = require("md5");
 _ = _.extend(_, require('../config-utils'));
 
 const RETRY_SAVES = 3
@@ -87,6 +88,11 @@ export default class ConfigPersistenceManager {
         throw new Error('config json appears empty');
       }
       this.settings = json['*'];
+
+      const allSettings = {'*': this.settings};
+      const allSettingsJSON = JSON.stringify(allSettings, null, 2);
+      this.settingsHash = md5(allSettingsJSON);
+
       this.emitChangeEvent();
     } catch (error) {
       error.message = `Failed to load config.json: ${error.message}`;
@@ -143,6 +149,9 @@ export default class ConfigPersistenceManager {
     }
     const allSettings = {'*': this.settings};
     const allSettingsJSON = JSON.stringify(allSettings, null, 2);
+    if(md5(allSettingsJSON) === this.settingsHash) {
+      return;
+    }
     this.lastSaveTimestamp = Date.now();
 
     try {
