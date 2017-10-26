@@ -126,8 +126,8 @@ class SearchStore extends NylasStore {
       this._compileResults();
     })
 
-    this._fetchThreadResults();
     this._fetchContactResults();
+    this._fetchThreadResults();
   }
 
   _fetchContactResults() {
