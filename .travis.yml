@@ -15,6 +15,10 @@ addons:
     - libxext-dev
     - libxtst-dev
     - libxkbfile-dev
+branches:
+  only:
+  - master
+  - /^v?\d+\.\d+(\.\d+)?(-\S*)?$/
 matrix:
   include:
   - os: linux
