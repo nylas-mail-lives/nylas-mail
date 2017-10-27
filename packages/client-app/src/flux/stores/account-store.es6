@@ -198,7 +198,7 @@ class AccountStore extends NylasStore {
 
   _save = () => {
     this._version += 1
-    configAccounts = AccountStore.accountsToJson(this._accounts)
+    const configAccounts = AccountStore.accountsToJson(this._accounts)
     NylasEnv.config.set(configAccountsKey, configAccounts)
     NylasEnv.config.set(configVersionKey, this._version)
     this._trigger()
@@ -215,10 +215,13 @@ class AccountStore extends NylasStore {
     account = _.extend(account, updated)
 
     // check if this update will actually change any of the content
-    let tempAccounts
-    Object.assign(this._accounts, tempAccounts)
-    const tempAccountsJson = AccountStore.accountsToJson(tempAccounts)
-    if(md5(JSON.stringify(tempAccountsJson)) === this._accountsHash) return
+    const oldAccount = this._accounts[idx]
+    this._accounts[idx] = account
+    const tempAccountsJson = AccountStore.accountsToJson(this._accounts)
+    if (md5(JSON.stringify(tempAccountsJson)) === this._accountsHash) {
+      this._accounts[idx] = oldAccount
+      return
+    }
 
     this._caches = {}
     this._accounts[idx] = account
