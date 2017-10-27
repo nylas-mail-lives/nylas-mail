@@ -20,7 +20,7 @@ branches:
   - master
   - "/ci-.*/"
   - "/stable.*/"
-  - ^v?\d+(?:\.\d+)+-?(?:\w+)?$
+  - ^v?\d+(?:\.\d+)+-?(?:\w+|\d+)?(?:.(?:\w+|\d+))*$
 matrix:
   include:
   - os: linux
@@ -61,7 +61,7 @@ deploy:
   file:
     - "./packages/client-app/dist/*.deb"
     - "./packages/client-app/dist/*.rpm"
-    - "./packages/client-app/dist/*.dmg",
+    - "./packages/client-app/dist/*.dmg"
   skip_cleanup: true
   on:
     tags: true
