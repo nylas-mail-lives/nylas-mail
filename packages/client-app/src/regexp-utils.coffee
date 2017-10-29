@@ -113,7 +113,8 @@ RegExpUtils =
     if matchEntireString
       parts.unshift('^')
 
-    return new RegExp(parts.join(''), 'gi')
+    # return new RegExp(parts.join(''), 'gi')
+    return new RegExp(/((([A-Za-z]{3,9}:(?:\/\/))?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|edu|uk|ca|de|jp|fr|au|us|co|ru|ch|it|nl|se|no|es|mil|ly|in|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?(?::d*)?|mailto:\/*(?:\w+\.|[\-;:&=\+\$.,\w]+@)[A-Za-z0-9\.\-]+|tel:)((?:[\+~%\/\.\w\-_@]*[\+~%\/\w\-_]+)?(?:(\?[\-\+=&;%@\.\w_\#]*[\#\-\+=&;%@\w_\/]+)?#?(?:['\$\&\(\)\*\+,;=\.\!\/\\\w%-]*[\/\\\w]+)?)?)?)/gi)
 
   # Test cases: https://regex101.com/r/jD5zC7/2
   # Returns the following capturing groups:
