@@ -171,7 +171,9 @@ function bodyFromParts(imapMessage, desiredParts) {
     //
     // This may seem kind of weird, but some MUAs _do_ send out whack stuff
     // like an HTML body followed by a plaintext footer.
-    if (mimeType === 'text/plain') {
+    if ( mimeType === 'text/calendar' ) {
+
+    } else if (mimeType === 'text/plain') {
       body += htmlifyPlaintext(decoded);
     } else {
       body += decoded;
@@ -181,6 +183,26 @@ function bodyFromParts(imapMessage, desiredParts) {
   // SQLite blow up with an 'unrecognized token' error
   body = body.replace(/\0/g, '');
 
+  return body;
+}
+
+// Parse events from text/calendar part of the email
+function parseEvents(imapMessage, desiredParts) {
+  let body = '';
+  for (const {id, mimeType, transferEncoding, charset} of desiredParts) {
+    let decoded = '';
+    if ((/quot(ed)?[-/]print(ed|able)?/gi).test(transferEncoding)) {
+      decoded = mimelib.decodeQuotedPrintable(imapMessage.parts[id], charset);
+    } else if ((/base64/gi).test(transferEncoding)) {
+      decoded = mimelib.decodeBase64(imapMessage.parts[id], charset);
+    } else {
+      decoded = encoding.convert(imapMessage.parts[id], 'utf-8', charset).toString('utf-8');
+    }
+
+    if ( mimeType === 'text/calendar' && (/base64/gi).test(transferEncoding) ) {
+      body += decoded;
+    }
+  }
   return body;
 }
 
@@ -210,6 +232,7 @@ async function parseFromImap(imapMessage, desiredParts, {db, accountId, folder})
     replyTo: parseContacts(parsedHeaders['reply-to']),
     accountId: accountId,
     body: bodyFromParts(imapMessage, desiredParts),
+    events: parseEvents(imapMessage, desiredParts),
     snippet: null,
     unread: !attributes.flags.includes('\\Seen'),
     starred: attributes.flags.includes('\\Flagged'),
