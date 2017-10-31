@@ -92,7 +92,13 @@ c3 = new ListTabular.Column
   flex: 4
   resolver: (thread) =>
     attachment = false
+    invite = false
+
     messages = thread.__messages || []
+
+    hasInvite = thread.hasAttachments and messages.find (m) -> Utils.showIconForInvites(m.files)
+    if hasInvite
+      invite = <div className="thread-icon thread-icon-calendar"></div>
 
     hasAttachments = thread.hasAttachments and messages.find (m) -> Utils.showIconForAttachments(m.files)
     if hasAttachments
@@ -102,6 +108,7 @@ c3 = new ListTabular.Column
       <MailLabelSet thread={thread} />
       <span className="subject">{subject(thread.subject)}</span>
       <span className="snippet">{getSnippet(thread)}</span>
+      {invite}
       {attachment}
     </span>
 
@@ -142,7 +149,12 @@ cNarrow = new ListTabular.Column
   resolver: (thread) =>
     pencil = false
     attachment = false
+    invite = false
     messages = thread.__messages || []
+
+    hasInvite = thread.hasAttachments and messages.find (m) -> Utils.showIconForInvites(m.files)
+    if hasInvite
+      invite = <div className="thread-icon thread-icon-calendar"></div>
 
     hasAttachments = thread.hasAttachments and messages.find (m) -> Utils.showIconForAttachments(m.files)
     if hasAttachments
@@ -177,6 +189,7 @@ cNarrow = new ListTabular.Column
           <ThreadListParticipants thread={thread} />
           {pencil}
           <span style={flex:1}></span>
+          {invite}
           {attachment}
           <InjectedComponent
             key="thread-injected-timestamp"
