@@ -96,6 +96,9 @@ RegExpUtils =
           # URL components
           # (last character must not be puncation, hence two groups)
           '(?:[\\+~%\\/\\.\\w\\-_@]*[\\+~%\\/\\w\\-_]+)?'
+      
+          # optionally followed by: a query string and/or a #location		
+          # (last character must not be puncation, hence two groups)
           '(?:(\\?[\\-\\+=&;%@\\.\\w_\\#]*[\\#\\-\\+=&;%@\\w_\\/]+)?#?(?:[\'\\$\\&\\(\\)\\*\\+,;=\\.\\!\\/\\\\\\w%-]*[\\/\\\\\\w]+)?)?'
         ')?'
       ')'
