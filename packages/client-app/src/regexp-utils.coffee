@@ -65,6 +65,7 @@ RegExpUtils =
               '(\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)(\\.(\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)){3}'
 
             ')'
+
           ')'
 
           # port if specified
@@ -105,7 +106,7 @@ RegExpUtils =
       parts.unshift('^')
 
     return new RegExp(parts.join(''), 'gi')
-
+  
   # Test cases: https://regex101.com/r/jD5zC7/2
   # Returns the following capturing groups:
   # 1. start of the opening a tag to href="

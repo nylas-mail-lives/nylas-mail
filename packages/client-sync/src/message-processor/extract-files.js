@@ -26,6 +26,7 @@ function collectFilesFromStruct({db, messageValues, struct, fileIds = new Set()}
       // to ensure that there is a filename and contentId because some clients
       // use "inline" for text in the body.
       const isAttachment = /(attachment)/gi.test(disposition.type) ||
+        /(calendar)/gi.test(part.subtype) ||
         (/(inline)/gi.test(disposition.type) && filename && contentId);
 
       if (!isAttachment) continue

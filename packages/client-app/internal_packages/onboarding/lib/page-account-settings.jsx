@@ -35,17 +35,13 @@ class AccountBasicSettingsForm extends React.Component {
     const errorFieldNames = [];
     let errorMessage = null;
 
-    if (!email || !password || !name) {
+    if (!email || !name) {
       return {errorMessage, errorFieldNames, populated: false};
     }
 
     if (!RegExpUtils.emailRegex().test(accountInfo.email)) {
       errorFieldNames.push('email')
       errorMessage = "Please provide a valid email address."
-    }
-    if (!accountInfo.password) {
-      errorFieldNames.push('password')
-      errorMessage = "Please provide a password for your account."
     }
     if (!accountInfo.name) {
       errorFieldNames.push('name')

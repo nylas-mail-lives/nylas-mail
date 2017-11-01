@@ -348,6 +348,15 @@ body.platform-win32 {
   }
 }
 
+.sheet-toolbar {
+  .selection-bar {
+    .absolute {
+      background-color: transparent;
+      background-image: -webkit-linear-gradient(lighten(@toolbar-background-color, 10%) 0%, lighten(@toolbar-background-color, 10%) 1.9%, lighten(@toolbar-background-color, 9%) 2%, @toolbar-background-color 100%);
+    }
+  }
+}
+
 .thread-list .list-item:hover .list-column-HoverActions .inner {
   background-image: -webkit-linear-gradient(left, fade(darken(@list-bg, 5%), 0%) 0%, darken(@list-bg, 5%) 50%, darken(@list-bg, 5%) 100%);
 }
