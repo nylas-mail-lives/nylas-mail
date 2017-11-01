@@ -39,78 +39,76 @@ RegExpUtils =
 
   # Test cases: https://regex101.com/r/pD7iS5/3
   urlRegex: ({matchEntireString} = {}) ->
-    commonTlds = ['com', 'org', 'edu', 'gov', 'uk', 'net', 'ca', 'de', 'jp', 'fr', 'au', 'us', 'ru', 'ch', 'it', 'nl', 'se', 'no', 'es', 'mil', 'ly', 'co', 'in', 'it', 'co\.uk', 'info', 'biz', 'ai']
+    commonTlds = ['com', 'org', 'edu', 'gov', 'uk', 'net', 'ca', 'de', 'jp', 'fr', 'au', 'us', 'ru', 'ch', 'it', 'nl', 'se', 'no', 'es', 'mil', 'ly', 'biz', 'ai', 'info', 'it', 'to', 'io', 'co', 'eu', 'aero', 'jobs', 'mobi', 'at', 'be', 'br', 'cn' ]
 
     parts = [
       '('
-        # one of:
+        # one of
         '('
-          # This OR block matches any TLD if the URL includes a scheme, and only
-          # the top ten TLDs if the scheme is omitted.
-          # YES - https://nylas.ai
-          # YES - https://10.2.3.1
-          # YES - nylas.com
-          # NO  - nylas.ai
+          # scheme, ala https://
+          '([A-Za-z]{3,9}:(?:\\/\\/))?'
+
+          # username:password (optional)
+          '(?:\\w+:\\w+@)?'
+
+          # one of:
           '('
-            # scheme, ala https:// (mandatory)
-            '([A-Za-z]{3,9}:(?:\\/\\/))'
 
-            # username:password (optional)
-            '(?:[\\-;:&=\\+\\$,\\w]+@)?'
+            # domain with common tld
+            '(?:(?:[-\\w\\d{1-3}]+\\.)+(?:' + commonTlds.join('|') + '))'
 
-            # one of:
+            # or
+            '|'
+
+            # ip address
             '('
-              # domain with any tld
-              '(?:(?:[-\\w\\d{1-3}]+\\.)+(?:' + commonTlds.join('|') + '|[a-z]{2,4}))'
+              '(\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)(\\.(\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)){3}'
 
-              '|'
-
-              # ip address
-              '((\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)(\.(\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)){3})'
             ')'
-
-            # port if specified
-            '(?::[\\d]{1,5})?'
-
-            # URL Path
-            '(?:(?:(?:\\/(?:[-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?'
-
-            # query strings
-            '(?:(?:\\?(?:[-\\w~!\\$\\+|\.,*:]|%[a-f\\d{2}])+=?(?:[-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)(?:\\&(?:[-\\w~!\$\+|\.,*:]|%[a-f\\d{2}])+=?(?:[-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*'
-            '|'
-
-            # Anchor 
-            '(?:#(?:[-\\w~!$ |\\/\.,*:;=]|%[a-f\\d]{2})*)?'
-
-            '|'
-
-            # mailtos
-            'mailto:\\/*(?:\\w+\\.|[\\-;:&=\\+\\$.,\\w]+@)[A-Za-z0-9\\.\\-]+'
-
           ')'
 
-          # :port (optional)
-          '(?::\d*)?'
+          # port if specified
+          '(?::[\\d]{1,5})?'
 
-        ')'
+          # URL Path
+          '(?:(?:(?:\\/(?:[-\\w~!$+|.,=:]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?'
+
+          # query strings
+            '(?:(?:\\?(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?(?:[-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)(?:&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?(?:[-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*'
+
+          # Anchor links
+          '(?:#(?:[-\\w~!$ |\\/.,*:;=]|%[a-f\\d]{2})*)?'
+
+          # or
+          '|'
+
+          # mailto links
+          'mailto:\\/*(?:\\w+\\.|[\\-;:&=\\+\\$.,\\w]+@)[A-Za-z0-9\\.\\-]+'
+
+          '|'
+
+          # telephone links
+          'tel:'
+        ')' 
 
         # optionally followed by:
         '('
           # URL components
           # (last character must not be puncation, hence two groups)
           '(?:[\\+~%\\/\\.\\w\\-_@]*[\\+~%\\/\\w\\-_]+)?'
-
-          # optionally followed by: a query string and/or a #location
+      
+          # optionally followed by: a query string and/or a #location		
           # (last character must not be puncation, hence two groups)
           '(?:(\\?[\\-\\+=&;%@\\.\\w_\\#]*[\\#\\-\\+=&;%@\\w_\\/]+)?#?(?:[\'\\$\\&\\(\\)\\*\\+,;=\\.\\!\\/\\\\\\w%-]*[\\/\\\\\\w]+)?)?'
         ')?'
       ')'
     ]
+
     if matchEntireString
       parts.unshift('^')
 
     return new RegExp(parts.join(''), 'gi')
-  
+
   # Test cases: https://regex101.com/r/jD5zC7/2
   # Returns the following capturing groups:
   # 1. start of the opening a tag to href="
