@@ -135,9 +135,9 @@ export default class Message extends ModelWithMetadata {
       modelKey: 'unread',
     }),
 
-    events: Attributes.Collection({
+    events: Attributes.String({
       modelKey: 'events',
-      itemClass: Event,
+    /*  itemClass: Event, */
     }),
 
     starred: Attributes.Boolean({
@@ -227,10 +227,6 @@ Message(date DESC) WHERE draft = 1`,
     json.file_ids = this.fileIds()
     if (this.draft) {
       json.object = 'draft'
-    }
-
-    if (this.events && this.events.length) {
-      json.event_id = this.events[0].serverId
     }
 
     return json
