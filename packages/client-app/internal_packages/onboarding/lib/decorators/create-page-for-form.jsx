@@ -145,7 +145,7 @@ const CreatePageForForm = (FormComponent) => {
           errorFieldNames.push('username');
         }
         if (NylasAPI.TimeoutErrorCodes.includes(err.statusCode)) { // timeout
-          errorMessage = "We were unable to reach your mail provider. Please try again."
+          errorMessage = "We were unable to reach your mail provider; please try again. You may require a password."
         }
 
         this.setState({errorMessage, errorStatusCode, errorFieldNames, submitting: false});

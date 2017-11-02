@@ -32,7 +32,7 @@ class AccountIMAPSettingsForm extends React.Component {
     const errorFieldNames = [];
 
     for (const type of ['imap', 'smtp']) {
-      if (!accountInfo[`${type}_host`] || !accountInfo[`${type}_username`] || !accountInfo[`${type}_password`]) {
+      if (!accountInfo[`${type}_host`] || !accountInfo[`${type}_username`]) {
         return {errorMessage, errorFieldNames, populated: false};
       }
       if (!isValidHost(accountInfo[`${type}_host`])) {

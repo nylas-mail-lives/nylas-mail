@@ -27,9 +27,6 @@ cp -r "$APP_CONTENTS_DIRECTORY" "$TARGET/usr/share/nylas-mail"
 mkdir -m $FILE_MODE -p "$TARGET/DEBIAN"
 cp "$OUTPUT_PATH/control" "$TARGET/DEBIAN/control"
 
-cp "$LINUX_ASSETS_DIRECTORY/debian/postinst" "$TARGET/DEBIAN/postinst"
-cp "$LINUX_ASSETS_DIRECTORY/debian/postrm" "$TARGET/DEBIAN/postrm"
-
 mkdir -m $FILE_MODE -p "$TARGET/usr/bin"
 ln -s "../share/nylas-mail/nylas" "$TARGET/usr/bin/nylas-mail"
 chmod +x "$TARGET/usr/bin/nylas-mail"

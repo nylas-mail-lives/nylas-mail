@@ -39,7 +39,7 @@ RegExpUtils =
 
   # Test cases: https://regex101.com/r/pD7iS5/3
   urlRegex: ({matchEntireString} = {}) ->
-    commonTlds = ['com', 'org', 'edu', 'gov', 'uk', 'net', 'ca', 'de', 'jp', 'fr', 'au', 'us', 'ru', 'ch', 'it', 'nl', 'se', 'no', 'es', 'mil', 'ly']
+    commonTlds = ['com', 'org', 'edu', 'gov', 'uk', 'net', 'ca', 'de', 'jp', 'fr', 'au', 'us', 'ru', 'ch', 'it', 'nl', 'se', 'no', 'es', 'mil', 'ly', 'co', 'in', 'it', 'co\.uk', 'info', 'biz', 'ai']
 
     parts = [
       '('
@@ -61,41 +61,37 @@ RegExpUtils =
             # one of:
             '('
               # domain with any tld
-              '([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\\.[a-zA-Z]{2,11}'
+              '(?:(?:[-\\w\\d{1-3}]+\\.)+(?:' + commonTlds.join('|') + '|[a-z]{2,4}))'
 
               '|'
 
               # ip address
-              '(?:[0-9]{1,3}\\.){3}[0-9]{1,3}'
+              '((\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)(\.(\\b25[0-5]\\b|\\b[2][0-4][0-9]\\b|\\b[0-1]?[0-9]?[0-9]\\b)){3})'
             ')'
+
+            # port if specified
+            '(?::[\\d]{1,5})?'
+
+            # URL Path
+            '(?:(?:(?:\\/(?:[-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?'
+
+            # query strings
+            '(?:(?:\\?(?:[-\\w~!\\$\\+|\.,*:]|%[a-f\\d{2}])+=?(?:[-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)(?:\\&(?:[-\\w~!\$\+|\.,*:]|%[a-f\\d{2}])+=?(?:[-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*'
+            '|'
+
+            # Anchor 
+            '(?:#(?:[-\\w~!$ |\\/\.,*:;=]|%[a-f\\d]{2})*)?'
 
             '|'
 
-            # scheme, ala https:// (optional)
-            '([A-Za-z]{3,9}:(?:\\/\\/))?'
+            # mailtos
+            'mailto:\\/*(?:\\w+\\.|[\\-;:&=\\+\\$.,\\w]+@)[A-Za-z0-9\\.\\-]+'
 
-            # username:password (optional)
-            '(?:[\\-;:&=\\+\\$,\\w]+@)?'
-
-            # one of:
-            '('
-              # domain with common tld
-              '([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\\.(?:' + commonTlds.join('|') + ')'
-
-              '|'
-
-              # ip address
-              '(?:[0-9]{1,3}\\.){3}[0-9]{1,3}'
-            ')'
           ')'
 
           # :port (optional)
           '(?::\d*)?'
 
-          '|'
-
-          # mailto:username@password.com
-          'mailto:\\/*(?:\\w+\\.|[\\-;:&=\\+\\$.,\\w]+@)[A-Za-z0-9\\.\\-]+'
         ')'
 
         # optionally followed by:
@@ -114,7 +110,7 @@ RegExpUtils =
       parts.unshift('^')
 
     return new RegExp(parts.join(''), 'gi')
-
+  
   # Test cases: https://regex101.com/r/jD5zC7/2
   # Returns the following capturing groups:
   # 1. start of the opening a tag to href="
