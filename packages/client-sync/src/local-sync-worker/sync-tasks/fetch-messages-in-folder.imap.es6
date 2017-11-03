@@ -179,7 +179,7 @@ class FetchMessagesInFolderIMAP extends SyncTask {
         if (alternativeParts.length > 0) {
           // We need the ICS body to capture the invite information
           alternativeParts.forEach( function(alternativePart) {
-            if( alternativePart.mimeType == 'text/calendar') {
+            if( alternativePart.mimeType == 'text/calendar' || alternativePart.mimeType == 'text/html') {
               desired.push(alternativePart);  
             }
           });
