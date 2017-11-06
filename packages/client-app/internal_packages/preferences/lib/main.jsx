@@ -7,7 +7,7 @@ import PreferencesGeneral from './tabs/preferences-general';
 import PreferencesAccounts from './tabs/preferences-accounts';
 import PreferencesAppearance from './tabs/preferences-appearance';
 import PreferencesKeymaps from './tabs/preferences-keymaps';
-// import PreferencesMailRules from './tabs/preferences-mail-rules';
+import PreferencesMailRules from './tabs/preferences-mail-rules';
 
 export function activate() {
   PreferencesUIStore.registerPreferencesTab(new PreferencesUIStore.TabItem({
@@ -34,12 +34,12 @@ export function activate() {
     component: PreferencesKeymaps,
     order: 5,
   }))
-  // PreferencesUIStore.registerPreferencesTab(new PreferencesUIStore.TabItem({
-  //   tabId: 'Mail Rules',
-  //   displayName: 'Mail Rules',
-  //   component: PreferencesMailRules,
-  //   order: 6,
-  // }))
+  PreferencesUIStore.registerPreferencesTab(new PreferencesUIStore.TabItem({
+    tabId: 'Mail Rules',
+    displayName: 'Mail Rules',
+    component: PreferencesMailRules,
+    order: 6
+  }))
 
   WorkspaceStore.defineSheet('Preferences', {}, {
     split: ['Preferences'],
