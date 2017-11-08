@@ -63,110 +63,37 @@ class FeatureUsageStore extends NylasStore {
   }
 
   activate() {
-    /**
-     * The IdentityStore triggers both after we update it, and when it
-     * polls for new data every several minutes or so.
-     */
-    this._disp = Rx.Observable.fromStore(IdentityStore).subscribe(() => {
-      this.trigger()
-    })
     this._usub = Actions.closeModal.listen(this._onModalClose)
   }
 
   deactivate() {
-    this._disp.dispose();
     this._usub()
   }
 
   async asyncUseFeature(feature, {lexicon = {}} = {}) {
-    if (IdentityStore.hasProAccess() || this._isUsable(feature)) {
       return this._markFeatureUsed(feature)
-    }
-
-    const {headerText, rechargeText} = this._modalText(feature, lexicon)
-    Actions.openModal({
-      component: (
-        <FeatureUsedUpModal
-          modalClass={feature}
-          featureName={lexicon.displayName}
-          headerText={headerText}
-          iconUrl={lexicon.iconUrl}
-          rechargeText={rechargeText}
-        />
-      ),
-      height: 575,
-      width: 412,
-    })
-    return new Promise((resolve, reject) => {
-      this._waitForModalClose.push({resolve, reject, feature})
-    })
   }
 
   _onModalClose = async () => {
-    for (const {feature, resolve, reject} of this._waitForModalClose) {
-      if (IdentityStore.hasProAccess() || this._isUsable(feature)) {
-        await this._markFeatureUsed(feature)
-        resolve()
-      } else {
-        reject(new NoProAccess(feature))
-      }
-    }
     this._waitForModalClose = []
   }
 
   _modalText(feature, lexicon = {}) {
-    const featureData = this._featureData(feature);
-
-    let headerText = "";
-    let rechargeText = ""
-    if (!featureData.quota) {
-      headerText = `${lexicon.displayName} not yet enabled`;
-      rechargeText = `Upgrade to Pro to use ${lexicon.displayName}`
-    } else {
-      headerText = lexicon.usedUpHeader || "You've reached your quota";
-      let time = "later";
-      if (featureData.period === "hourly") {
-        time = "next hour"
-      } else if (featureData.period === "daily") {
-        time = "tomorrow"
-      } else if (featureData.period === "weekly") {
-        time = "next week"
-      } else if (featureData.period === "monthly") {
-        time = "next month"
-      } else if (featureData.period === "yearly") {
-        time = "next year"
-      } else if (featureData.period === "unlimited") {
-        time = "if you upgrade to Pro"
-      }
-      rechargeText = `You’ll have ${featureData.quota} more ${time}`
-    }
+    let headerText = `Yay!`;
+    let rechargeText = `You’ll have 99 more because you are awesome`
     return {headerText, rechargeText}
   }
 
   _featureData(feature) {
-    const usage = this._featureUsage()
-    if (!usage[feature]) {
-      NylasEnv.reportError(new Error(`${feature} isn't supported`));
-      return {}
-    }
-    return usage[feature]
+    return true
   }
 
   _isUsable(feature) {
-    const usage = this._featureUsage()
-    if (!usage[feature]) {
-      NylasEnv.reportError(new Error(`${feature} isn't supported`));
-      return false
-    }
-    return usage[feature].used_in_period < usage[feature].quota
+    return true
   }
 
   async _markFeatureUsed(featureName) {
-    const task = new SendFeatureUsageEventTask(featureName)
-    Actions.queueTask(task);
-    await TaskQueueStatusStore.waitForPerformLocal(task)
-    const feat = IdentityStore.identity().feature_usage[featureName]
-    return feat.quota - feat.used_in_period
+    return 99
   }
 
   _featureUsage() {
