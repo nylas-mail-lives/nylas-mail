@@ -54,6 +54,7 @@ class NylasWindow
       resizable: resizable
       webPreferences:
         directWrite: true
+        zoomFactor: zoomFactor
       autoHideMenuBar: true
 
     if @neverClose
