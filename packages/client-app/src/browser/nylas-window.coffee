@@ -37,7 +37,7 @@ class NylasWindow
      @resourcePath,
      @exitWhenDone,
      @configDirPath} = settings
-
+    zoomFactor = settings.webPreferences.zoomFactor
     if !@windowKey
       @windowKey = "#{@windowType}-#{idNum}"
       idNum += 1
