@@ -1,7 +1,7 @@
 import _ from 'underscore';
-import {FeatureUsageStore, Actions, AccountStore,
-  DatabaseStore, Message, CategoryStore} from 'nylas-exports';
+import {FeatureUsageStore, Actions, AccountStore, DatabaseStore, Thread} from 'nylas-exports';
 import SnoozeUtils from './snooze-utils'
+import momentTimezone from 'moment-timezone'
 import {PLUGIN_ID, PLUGIN_NAME} from './snooze-constants';
 import SnoozeActions from './snooze-actions';
 
@@ -19,6 +19,7 @@ class SnoozeStore {
       AccountStore.listen(this.onAccountsChanged),
       SnoozeActions.snoozeThreads.listen(this.onSnoozeThreads),
     ]
+    setInterval(this.onUnsnoozeThreads, 60000);  // TODO: Do this a better way.
   }
 
   recordSnoozeEvent(threads, snoozeDate, label) {
@@ -34,26 +35,6 @@ class SnoozeStore {
       // Do nothing
     }
   }
-
-  groupUpdatedThreads = (threads, snoozeCategoriesByAccount) => {
-    const getSnoozeCategory = (accId) => snoozeCategoriesByAccount[accId]
-    const {getInboxCategory} = CategoryStore
-    const threadsByAccountId = {}
-
-    threads.forEach((thread) => {
-      const accId = thread.accountId
-      if (!threadsByAccountId[accId]) {
-        threadsByAccountId[accId] = {
-          threads: [thread],
-          snoozeCategoryId: getSnoozeCategory(accId).serverId,
-          returnCategoryId: getInboxCategory(accId).serverId,
-        }
-      } else {
-        threadsByAccountId[accId].threads.push(thread);
-      }
-    });
-    return Promise.resolve(threadsByAccountId);
-  };
 
   onAccountsChanged = () => {
     const nextIds = _.pluck(AccountStore.accounts(), 'id')
@@ -74,34 +55,13 @@ class SnoozeStore {
       iconUrl: "nylas://thread-snooze/assets/ic-snooze-modal@2x.png",
     }
 
-    FeatureUsageStore.asyncUseFeature('snooze', {lexicon})
-    .then(() => {
-      this.recordSnoozeEvent(threads, snoozeDate, label)
-      return SnoozeUtils.moveThreadsToSnooze(threads, this.snoozeCategoriesPromise, snoozeDate)
-    })
+    SnoozeUtils.moveThreadsToSnooze(threads, this.snoozeCategoriesPromise, snoozeDate)
     .then((updatedThreads) => {
-      return this.snoozeCategoriesPromise
-      .then(snoozeCategories => this.groupUpdatedThreads(updatedThreads, snoozeCategories))
-    })
-    .then((updatedThreadsByAccountId) => {
-      _.each(updatedThreadsByAccountId, (update) => {
-        const {snoozeCategoryId, returnCategoryId} = update;
-
-        // Get messages for those threads and metadata for those.
-        DatabaseStore.findAll(Message, {threadId: update.threads.map(t => t.id)}).then((messages) => {
-          for (const message of messages) {
-            const header = message.messageIdHeader;
-            const stableId = message.id;
-            Actions.setMetadata(message, this.pluginId,
-              {expiration: snoozeDate, header, stableId, snoozeCategoryId, returnCategoryId})
-          }
-        });
+      _.each(updatedThreads, (update) => {
+        Actions.setMetadata(update, this.pluginId, { expiration: snoozeDate })
       });
     })
     .catch((error) => {
-      if (error instanceof FeatureUsageStore.NoProAccess) {
-        return
-      }
       SnoozeUtils.moveThreadsFromSnooze(threads, this.snoozeCategoriesPromise)
       Actions.closePopover();
       NylasEnv.reportError(error);
@@ -110,6 +70,33 @@ class SnoozeStore {
     });
   };
 
+  onUnsnooze = () => {
+    var snoozeCategories = []
+    SnoozeUtils.getSnoozeCategoriesByAccount().then(categories => {
+      _.each(categories, function(category) {
+        snoozeCategories.push(category.serverId);
+      });
+      return snoozeCategories;
+    }).then(snoozeCategories => {
+      DatabaseStore.findAll(Thread).where([
+        Thread.attributes.pluginMetadata.contains('thread-snooze'),
+        Thread.attributes.categories.contains(snoozeCategories)
+      ]).then(threads => {
+        if(threads.length < 1) {
+          return; // Nothing to do
+        }
+        
+        for(const thread of threads) {
+          var metadatum = thread.metadataObjectForPluginId('thread-snooze');
+          if(_momentTimezone().isSameOrAfter(metadatum.value.expiration)) {
+            SnoozeUtils.moveThreadsFromSnooze([thread], this.snoozeCategoriesPromise);
+            Actions.setMetadata(thread, this.pluginId, { expiration: null });
+          }
+        }
+      });
+    });
+  }
+  
   deactivate() {
     this.unsubscribers.forEach(unsub => unsub())
   }
