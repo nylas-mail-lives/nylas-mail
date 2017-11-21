@@ -42,6 +42,7 @@ module.exports = (sequelize, Sequelize) => {
         }));
       },
     },
+    events: Sequelize.TEXT,
     subject: Sequelize.STRING(500),
     snippet: Sequelize.STRING(255),
     date: Sequelize.DATE,
