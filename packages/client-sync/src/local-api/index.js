@@ -21,7 +21,7 @@ const server = new Hapi.Server({
 
 let port = 2578;
 if (NylasEnv.inDevMode()) port = 1337;
-server.connection({port});
+server.connection({port, host: 'localhost'});
 
 const plugins = [Inert, Vision, HapiBasicAuth, HapiBoom, {
   register: HapiSwagger,
