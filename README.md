@@ -49,14 +49,13 @@ benefit of letting us use subdomains.
 
 This repository contains the full source code to the Nylas Mail client and it's backend services. It is divided into the following packages:
 
-1. [**Isomorphic Core**](https://github.com/nylas/nylas-mail/tree/master/packages/isomorphic-core): Shared code across local client and cloud servers
-1. [**Client App**](https://github.com/nylas/nylas-mail/tree/master/packages/client-app): The main Electron app for Nylas Mail
+1. [**Isomorphic Core**](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/isomorphic-core): Shared code across local client and cloud servers
+1. [**Client App**](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app): The main Electron app for Nylas Mail
    mirrored to open source repo.
-1. [**Client Sync**](https://github.com/nylas/nylas-mail/tree/master/packages/client-sync): The local mailsync engine integreated in Nylas Mail
-1. [**Client Private Plugins**](https://github.com/nylas/nylas-mail/tree/master/packages/client-private-plugins): Private Nylas Mail plugins (like SFDC)
-1. [**Cloud API**](https://github.com/nylas/nylas-mail/tree/master/packages/cloud-api): The cloud-based auth and metadata APIs for N1
-1. [**Cloud Core**](https://github.com/nylas/nylas-mail/tree/master/packages/cloud-core): Shared code used in all remote cloud services
-1. [**Cloud Workers**](https://github.com/nylas/nylas-mail/tree/master/packages/cloud-workers): Cloud workers for services like send later
+1. [**Client Sync**](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-sync): The local mailsync engine integreated in Nylas Mail
+1. [**Cloud API**](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/cloud-api): The cloud-based auth and metadata APIs for N1
+1. [**Cloud Core**](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/cloud-core): Shared code used in all remote cloud services
+1. [**Cloud Workers**](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/cloud-workers): Cloud workers for services like send later
 
 See `/packages` for the separate pieces. Each folder in `/packages` is
 designed to be its own stand-alone repository. They are all bundled here
@@ -100,11 +99,11 @@ The Nylas Mail user interface is styled using CSS, which means it's easy to modi
 
 ### Bundled Themes
 
-- [Dark](https://github.com/nylas/nylas-mail/tree/master/internal_packages/ui-dark)
-- [Darkside](https://github.com/nylas/nylas-mail/tree/master/internal_packages/ui-darkside) (designed by [Jamie Wilson](https://github.com/jamiewilson))
-- [Less Is More](https://github.com/nylas/nylas-mail/tree/master/internal_packages/ui-less-is-more) (designed by [Alexander Adkins](https://github.com/P0WW0W))
-- [Taiga](https://github.com/nylas/nylas-mail/tree/master/internal_packages/ui-taiga) (designed by [Noah Buscher](https://github.com/noahbuscher))
-- [Ubuntu](https://github.com/nylas/nylas-mail/tree/master/internal_packages/ui-ubuntu) (designed by [Ahmed Elhanafy](https://github.com/ahmedlhanafy))
+- [Dark](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/ui-dark)
+- [Darkside](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/ui-darkside) (designed by [Jamie Wilson](https://github.com/jamiewilson))
+- [Less Is More](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/ui-less-is-more) (designed by [Alexander Adkins](https://github.com/P0WW0W))
+- [Taiga](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/ui-taiga) (designed by [Noah Buscher](https://github.com/noahbuscher))
+- [Ubuntu](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/ui-ubuntu) (designed by [Ahmed Elhanafy](https://github.com/ahmedlhanafy))
 
 ### Community Themes
 
@@ -153,14 +152,15 @@ We're working on building a plugin index that makes it super easy to add them to
 
 Great starting points for creating your own plugins!
 
-- [Translate](https://github.com/nylas/nylas-mail/tree/master/internal_packages/composer-translate) — Works with 10 languages
-- [Quick Replies](https://github.com/nylas/nylas-mail/tree/master/internal_packages/composer-templates) — Send emails faster with templates
-- [Emoji Keyboard](https://github.com/nylas/nylas-mail/tree/master/internal_packages/composer-emoji) — Insert emoji by typing a colon `:` followed by the name of an emoji symbol
-- [GitHub Sidebar Info](https://github.com/nylas/nylas-mail/tree/master/internal_packages/github-contact-card)
-- [View on GitHub](https://github.com/nylas/nylas-mail/tree/master/internal_packages/message-view-on-github)
-- [Personal Level Indicators](https://github.com/nylas/nylas-mail/tree/master/internal_packages/personal-level-indicators)
-- [Phishing Detection](https://github.com/nylas/nylas-mail/tree/master/internal_packages/phishing-detection)
-- [Unsubscribe](https://github.com/nylas/nylas-mail/tree/master/internal_packages/unsubscribe)
+- [Translate](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/composer-translate) — Works with 10 languages
+- [Quick Replies](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/composer-templates) — Send emails faster with templates
+- [Emoji Keyboard](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/composer-emoji) — Insert emoji by typing a colon `:` followed by the name of an emoji symbol
+- [GitHub Sidebar Info](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/github-contact-card)
+- [View on GitHub](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/message-view-on-github)
+- [Personal Level Indicators](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/personal-level-indicators)
+- [Phishing Detection](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/phishing-detection)
+- [Unsubscribe](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/unsubscribe)
+- [Keybase](https://github.com/nylas-mail-lives/nylas-mail/tree/master/packages/client-app/internal_packages/keybase)
 
 #### Community Plugins
 
@@ -182,7 +182,6 @@ Thanks!
 - [Weather](https://github.com/jackiehluo/n1-weather)
 - [Website Launcher](https://github.com/adriangrantdotorg/nylas-n1-background-webpage) — Opens a URL in separate window
 - [Wunderlist](https://github.com/miguelrs/n1-wunderlist)
-- In Development: [Cypher](https://github.com/mbilker/cypher) (PGP Encryption)
 
 When you install packages, they're moved to `~/.nylas-mail/packages`, and Nylas Mail runs apm install on the command line to fetch dependencies listed in the package's package.json
 
