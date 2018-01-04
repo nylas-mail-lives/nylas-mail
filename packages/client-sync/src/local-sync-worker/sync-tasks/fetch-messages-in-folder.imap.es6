@@ -158,7 +158,7 @@ class FetchMessagesInFolderIMAP extends SyncTask {
     const desired = [];
     const available = [];
     const unseen = [struct];
-    const desiredTypes = new Set(['text/plain', 'text/html']);
+    const desiredTypes = new Set(['text/plain', 'text/html', 'text/calendar']);
     // MIME structures can be REALLY FREAKING COMPLICATED. To simplify
     // processing, we flatten the MIME structure by walking it depth-first,
     // throwing away all multipart headers with the exception of
@@ -177,6 +177,12 @@ class FetchMessagesInFolderIMAP extends SyncTask {
         part.shift();
         const alternativeParts = this._getDesiredMIMEParts(part);
         if (alternativeParts.length > 0) {
+          // We need the ICS body to capture the invite information
+          alternativeParts.forEach( function(alternativePart) {
+            if( alternativePart.mimeType == 'text/calendar' || alternativePart.mimeType == 'text/html') {
+              desired.push(alternativePart);  
+            }
+          });
           // With reference to RFC2046, we keep only the last supported part.
           desired.push(alternativeParts[alternativeParts.length - 1]);
         }

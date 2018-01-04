@@ -27,6 +27,10 @@ Utils =
     return false unless files instanceof Array
     return files.find (f) -> !f.contentId or f.size > 12 * 1024
 
+  showIconForInvites: (files) ->
+    return false unless files instanceof Array
+    return files.find (f) -> `f.contentType == "text/calendar"`;
+
   extractTextFromHtml: (html, {maxLength} = {}) ->
     if (html ? "").trim().length is 0 then return ""
     if maxLength and html.length > maxLength

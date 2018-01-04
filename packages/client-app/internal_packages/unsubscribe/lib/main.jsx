@@ -12,7 +12,7 @@ export const config = {
     'enumLabels': ["Popup Window", "Native Browser"],
   },
   handleThreads: {
-    "title": "Default unsubscribe behaivor",
+    "title": "Default unsubscribe behavior",
     "type": "string",
     "default": "archive",
     "enum": ["archive", "trash", "none"],
