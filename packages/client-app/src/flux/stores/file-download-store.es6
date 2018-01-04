@@ -349,7 +349,7 @@ class FileDownloadStore extends NylasStore {
   _checkForDownloadedFile(file) {
     return fs.statAsync(this.pathForFile(file))
     .then((stats) => {
-      return Promise.resolve(stats.size >= file.size);
+      return Promise.resolve(stats.size > 0 && stats.size <= file.size);
     })
     .catch(() => {
       return Promise.resolve(false);
