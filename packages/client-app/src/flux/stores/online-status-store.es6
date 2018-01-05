@@ -33,7 +33,10 @@ class OnlineStatusStore extends NylasStore {
   }
 
   async _setNextOnlineState() {
-    const nextIsOnline = await isOnline()
+    var nextIsOnline = await isOnline()
+    if(!nextIsOnline) {
+      nextIsOnline = await isOnline({version: 'v6'})
+    }
     if (this._isOnline !== nextIsOnline) {
       this._isOnline = nextIsOnline
       this.trigger()
