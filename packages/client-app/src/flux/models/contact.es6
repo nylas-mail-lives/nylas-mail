@@ -301,6 +301,12 @@ export default class Contact extends Model {
   }
 
   _parseReverseNames(name) {
+    // If the user doesn't want to parse Reverse Names, simply return an empty array
+    // Fixed https://github.com/nylas-mail-lives/nylas-mail/issues/179
+    if( !NylasEnv.config.get('core.reading.lastNameFirstNameParsing') ) {
+      return [];
+    }
+
     const parts = [];
     const [lastName, remainder] = name.split(', ');
     if (remainder) {

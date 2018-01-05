@@ -99,6 +99,11 @@ export default {
             'default': false,
             'title': "Display conversations in descending chronological order",
           },
+          lastNameFirstNameParsing: {
+            'type': 'boolean',
+            'default': true,
+            'title': "Automatically parse names that are in the 'Last Name, First Name' format"
+          },
         },
       },
       composing: {
