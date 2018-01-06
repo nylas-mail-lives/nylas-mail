@@ -59,7 +59,7 @@ deploy:
   file:
     - "/home/travis/build/nylas-mail-lives/nylas-mail/packages/client-app/dist/*.deb"
     - "/home/travis/build/nylas-mail-lives/nylas-mail/packages/client-app/dist/*.rpm"
-    - "/home/travis/build/nylas-mail-lives/nylas-mail/packages/client-app/dist/*.dmg"
+    - "/Users/travis/build/nylas-mail-lives/nylas-mail/packages/client-app/dist/*.dmg"
   skip_cleanup: true
   on:
     tags: true
