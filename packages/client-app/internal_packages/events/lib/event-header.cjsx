@@ -29,12 +29,16 @@ class EventHeader extends React.Component
       event: eventContent
     
     @isEventValid = typeof eventContent == "object";
-    calendarObj = @state.event.VCALENDAR[0];
+
+    if typeof @state.event.VCALENDAR == "array" 
+      calendarObj = @state.event.VCALENDAR[0];
+    else
+      calendarObj = @state.event.VCALENDAR;  
     
     @eventDetails = {
       "title": calendarObj.VEVENT.SUMMARY,
-      "start_time": moment(calendarObj.VEVENT.DTSTART + calendarObj.VTIMEZONE.DAYLIGHT.TZOFFSETTO).tz(DateUtils.timeZone),
-      "end_time": moment(calendarObj.VEVENT.DTEND + calendarObj.VTIMEZONE.DAYLIGHT.TZOFFSETTO).tz(DateUtils.timeZone),
+      "start_time": moment(calendarObj.VEVENT.DTSTART).tz(DateUtils.timeZone),
+      "end_time": moment(calendarObj.VEVENT.DTEND).tz(DateUtils.timeZone),
       "location": calendarObj.VEVENT.LOCATION,
       "description": calendarObj.VEVENT.DESCRIPTION,
       "status": calendarObj.VEVENT.STATUS
