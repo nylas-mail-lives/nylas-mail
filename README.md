@@ -1,6 +1,6 @@
 # Nylas Mail - the open-source, extensible mail client
 
-⚠️ **MAINTAINERS WANTED** The current maintainers of this repo no longer have the ability to devote their time to maintaining this project. If you'd like to maintain this, please create an issue. That being said, __it is highly reccomended that you take a look at [Mailspring](https://getmailspring.com/)__. Mailspring is the spiritual successor of Nylas Mail, and is maintained by the original creator. You will find that Mailspring is very similar, and much more secure than Nylas Mail Lives. __At this time, please do not expect any major features or fixes that are not directly contributed by the community.__
+⚠️ **Not Maintained & no longer secure:** The current maintainers of this repo no longer have the ability to devote their time to maintaining this project. There are currently multiple vulnerable dependencies and __it is highly recommended that you take a look at [Mailspring](https://getmailspring.com/)__. Mailspring is the spiritual successor of Nylas Mail, and is maintained by the original creator. You will find that Mailspring is very similar, and much more secure than Nylas Mail Lives. __This project is now in Archive Mode.__
 
 ![N1 Screenshot](https://www.nylas.com/hs-fs/hubfs/%20Nylas%20May%202017%20/Images/hero_graphic_mac@2x.png?t=1496457553218&width=1572&name=hero_graphic_mac@2x.png)
 
