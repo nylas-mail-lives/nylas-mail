@@ -17,6 +17,7 @@ export default class WindowLauncher {
   static EMPTY_WINDOW = "emptyWindow"
 
   constructor({devMode, benchmarkMode, safeMode, specMode, resourcePath, configDirPath, onCreatedHotWindow, config}) {
+    this.config = config;
     this.defaultWindowOpts = {
       frame: process.platform !== "darwin",
       hidden: false,
@@ -26,11 +27,13 @@ export default class WindowLauncher {
       benchmarkMode,
       resizable: true,
       windowType: WindowLauncher.EMPTY_WINDOW,
+      webPreferences: {
+        zoomFactor: config.settings.core.workspace.interfaceZoom,
+      },      
       bootstrapScript: require.resolve("../secondary-window-bootstrap"),
       resourcePath,
       configDirPath,
     }
-    this.config = config;
     this.onCreatedHotWindow = onCreatedHotWindow;
     if (specMode) return;
     this.createHotWindow();

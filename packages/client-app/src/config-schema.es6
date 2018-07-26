@@ -35,7 +35,8 @@ export default {
             'title': "Override standard interface scaling",
             'type': 'number',
             'default': 1,
-            'advanced': true,
+            'enum': [0.80, 1, 1.25, 1.5, 1.75, 2],
+            'enumLabels': ['80%', '100%', '125%', '150%', '175%', '200%']
           },
         },
       },

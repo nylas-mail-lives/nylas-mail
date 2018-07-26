@@ -37,7 +37,7 @@ class NylasWindow
      @resourcePath,
      @exitWhenDone,
      @configDirPath} = settings
-
+    zoomFactor = settings.webPreferences.zoomFactor
     if !@windowKey
       @windowKey = "#{@windowType}-#{idNum}"
       idNum += 1
@@ -54,6 +54,7 @@ class NylasWindow
       resizable: resizable
       webPreferences:
         directWrite: true
+        zoomFactor: zoomFactor
       autoHideMenuBar: true
 
     if @neverClose
